@@ -79,8 +79,22 @@ export const ProfileCard = ({
         </div>
         
         <div className="flex items-center p-4 bg-white">
-          <div className="ml-5">
-            {extraButton}
+          <div className="ml-8">
+            {extraButton && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (extraButton.props.onClick) {
+                    extraButton.props.onClick(e);
+                  }
+                }}
+                className="h-12 w-12 flex items-center justify-center rounded-full bg-transparent hover:bg-muted/80 transition-colors"
+                disabled={extraButton.props.disabled}
+                title={extraButton.props.title}
+              >
+                {extraButton.props.children}
+              </button>
+            )}
           </div>
           <div className="flex-1 flex justify-center gap-4">
             <button
