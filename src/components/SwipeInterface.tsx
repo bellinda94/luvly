@@ -57,7 +57,7 @@ export const SwipeInterface = () => {
   const handleLike = () => {
     const action: Action = { type: 'like', profileId: mockProfiles[currentIndex].id };
     setActions([...actions, action]);
-    toast.success("Liked! 💖");
+    toast.success("Liked! 💖", { duration: 2500 });
     setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
   };
 
@@ -77,7 +77,8 @@ export const SwipeInterface = () => {
     toast.info(
       lastAction.type === 'like' 
         ? "Like rückgängig gemacht" 
-        : "Pass rückgängig gemacht"
+        : "Pass rückgängig gemacht",
+      { duration: 2500 }
     );
   };
 
