@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 import { toast } from "sonner";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "./ui/button";
 
 const mockProfiles = [
   {
@@ -43,29 +45,68 @@ const mockProfiles = [
   },
 ];
 
+type Action = {
+  type: 'like' | 'pass';
+  profileId: number;
+};
+
 export const SwipeInterface = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [actions, setActions] = useState<Action[]>([]);
 
   const handleLike = () => {
+    const action: Action = { type: 'like', profileId: mockProfiles[currentIndex].id };
+    setActions([...actions, action]);
     toast.success("Liked! 💖");
     setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
   };
 
   const handlePass = () => {
+    const action: Action = { type: 'pass', profileId: mockProfiles[currentIndex].id };
+    setActions([...actions, action]);
     setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
   };
 
+  const handleUndo = () => {
+    if (actions.length === 0 || currentIndex === 0) return;
+    
+    const lastAction = actions[actions.length - 1];
+    setActions(actions.slice(0, -1));
+    setCurrentIndex((prev) => prev - 1);
+    
+    toast.info(
+      lastAction.type === 'like' 
+        ? "Like rückgängig gemacht" 
+        : "Pass rückgängig gemacht"
+    );
+  };
+
   const currentProfile = mockProfiles[currentIndex];
+  const canUndo = actions.length > 0 && currentIndex > 0;
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
       <div className="max-w-sm mx-auto">
         {currentProfile && (
-          <ProfileCard
-            {...currentProfile}
-            onLike={handleLike}
-            onPass={handlePass}
-          />
+          <>
+            <div className="mb-4 flex justify-end">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleUndo}
+                disabled={!canUndo}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Rückgängig
+              </Button>
+            </div>
+            <ProfileCard
+              {...currentProfile}
+              onLike={handleLike}
+              onPass={handlePass}
+            />
+          </>
         )}
       </div>
     </div>
