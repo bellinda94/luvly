@@ -100,7 +100,7 @@ export const ProfileCard = ({
 
       <Dialog open={showDetails} onOpenChange={setShowDetails}>
         <DialogContent className="sm:max-w-[425px] w-[95vw] max-h-[90vh] overflow-y-auto rounded-lg sm:rounded-lg">
-          <div className="flex items-center justify-between pr-2 mb-4 pt-2">
+          <div className="flex items-center justify-between pr-2 pt-1">
             <DialogTitle className="flex items-center gap-2">
               {name}, {age}
               {verified && <CheckCircle className="w-5 h-5 text-primary" />}
