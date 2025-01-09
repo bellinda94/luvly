@@ -99,12 +99,19 @@ export const ProfileCard = ({
       </div>
 
       <Dialog open={showDetails} onOpenChange={setShowDetails}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="relative pr-6">
             <DialogTitle className="flex items-center gap-2">
               {name}, {age}
               {verified && <CheckCircle className="w-5 h-5 text-primary" />}
             </DialogTitle>
+            <button
+              onClick={() => setShowDetails(false)}
+              className="absolute right-0 top-0 p-2 rounded-full hover:bg-muted/50 transition-colors"
+              aria-label="Close dialog"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </DialogHeader>
           
           <Carousel className="w-full max-w-xs mx-auto">
