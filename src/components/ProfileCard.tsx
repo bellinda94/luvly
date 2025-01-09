@@ -25,6 +25,7 @@ interface ProfileCardProps {
   images: string[];
   onLike: () => void;
   onPass: () => void;
+  extraButton?: React.ReactNode;
   preferences?: {
     ageRange?: string;
     lookingFor?: string;
@@ -42,6 +43,7 @@ export const ProfileCard = ({
   images,
   onLike,
   onPass,
+  extraButton,
   preferences,
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -86,6 +88,7 @@ export const ProfileCard = ({
           >
             <X className="w-6 h-6 text-destructive" />
           </button>
+          {extraButton}
           <button
             onClick={(e) => {
               e.stopPropagation();
