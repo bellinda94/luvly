@@ -15,6 +15,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+interface ExtraButtonProps {
+  onClick?: (e: React.MouseEvent) => void;
+  disabled?: boolean;
+  title?: string;
+  children?: React.ReactNode;
+}
+
 interface ProfileCardProps {
   name: string;
   age: number;
@@ -25,7 +32,7 @@ interface ProfileCardProps {
   images: string[];
   onLike: () => void;
   onPass: () => void;
-  extraButton?: React.ReactNode;
+  extraButton?: React.ReactElement<ExtraButtonProps>;
   preferences?: {
     ageRange?: string;
     lookingFor?: string;
