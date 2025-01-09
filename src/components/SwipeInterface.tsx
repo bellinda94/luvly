@@ -89,22 +89,22 @@ export const SwipeInterface = () => {
       <div className="max-w-sm mx-auto">
         {currentProfile && (
           <>
-            <div className="mb-4 flex justify-end">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleUndo}
-                disabled={!canUndo}
-                className="flex items-center gap-2"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Rückgängig
-              </Button>
-            </div>
             <ProfileCard
               {...currentProfile}
               onLike={handleLike}
               onPass={handlePass}
+              extraButton={
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleUndo}
+                  disabled={!canUndo}
+                  className="h-12 w-12"
+                  title="Rückgängig machen"
+                >
+                  <ArrowLeft className="w-6 h-6" />
+                </Button>
+              }
             />
           </>
         )}
