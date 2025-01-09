@@ -111,7 +111,7 @@ export const ProfileCard = ({
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
-                  <div className="aspect-[3/4] w-full max-h-[250px]">
+                  <div className="aspect-[3/4] w-full min-h-[250px] h-[60vh]">
                     <img
                       src={image}
                       alt={`${name} ${index + 1}`}
