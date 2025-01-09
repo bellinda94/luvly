@@ -100,12 +100,12 @@ export const ProfileCard = ({
 
       <Dialog open={showDetails} onOpenChange={setShowDetails}>
         <DialogContent className="sm:max-w-[425px] w-[95vw] max-h-[90vh] overflow-y-auto rounded-lg sm:rounded-lg">
-          <DialogHeader>
+          <div className="flex items-center justify-between pr-2">
             <DialogTitle className="flex items-center gap-2">
               {name}, {age}
               {verified && <CheckCircle className="w-5 h-5 text-primary" />}
             </DialogTitle>
-          </DialogHeader>
+          </div>
           
           <Carousel className="w-full max-w-[300px] mx-auto" opts={{ loop: true }}>
             <CarouselContent>
