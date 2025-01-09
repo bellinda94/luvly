@@ -78,26 +78,31 @@ export const ProfileCard = ({
           </div>
         </div>
         
-        <div className="flex justify-center gap-4 p-4 bg-white">
-          {extraButton}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onPass();
-            }}
-            className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-          >
-            <X className="w-6 h-6 text-destructive" />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onLike();
-            }}
-            className="p-3 rounded-full bg-primary hover:bg-primary/90 transition-colors"
-          >
-            <Heart className="w-6 h-6 text-white" />
-          </button>
+        <div className="flex items-center p-4 bg-white">
+          <div className="ml-5">
+            {extraButton}
+          </div>
+          <div className="flex-1 flex justify-center gap-4">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onPass();
+              }}
+              className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+            >
+              <X className="w-6 h-6 text-destructive" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onLike();
+              }}
+              className="p-3 rounded-full bg-primary hover:bg-primary/90 transition-colors"
+            >
+              <Heart className="w-6 h-6 text-white" />
+            </button>
+          </div>
+          <div className="w-[68px]" /> {/* Spacer to balance the layout */}
         </div>
       </div>
 
