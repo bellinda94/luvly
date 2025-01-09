@@ -79,6 +79,7 @@ export const ProfileCard = ({
         </div>
         
         <div className="flex justify-center gap-4 p-4 bg-white">
+          {extraButton}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -88,7 +89,6 @@ export const ProfileCard = ({
           >
             <X className="w-6 h-6 text-destructive" />
           </button>
-          {extraButton}
           <button
             onClick={(e) => {
               e.stopPropagation();

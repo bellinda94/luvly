@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { Button } from "./ui/button";
 
 const mockProfiles = [
@@ -102,7 +102,7 @@ export const SwipeInterface = () => {
                   className="h-12 w-12"
                   title="Rückgängig machen"
                 >
-                  <ArrowLeft className="w-6 h-6" />
+                  <RotateCcw className="w-6 h-6" />
                 </Button>
               }
             />
