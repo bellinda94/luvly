@@ -25,15 +25,15 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#0EA5E9",
+          DEFAULT: "#2E8B57", // Sea Green
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#E0F2FE",
+          DEFAULT: "#E0F4F0", // Light Sea Green
           foreground: "#1F2937",
         },
         destructive: {
-          DEFAULT: "#7DD3FC",
+          DEFAULT: "#98DBC6", // Soft Sea Green
           foreground: "#1F2937",
         },
         muted: {
@@ -41,7 +41,7 @@ export default {
           foreground: "#6B7280",
         },
         accent: {
-          DEFAULT: "#BAE6FD",
+          DEFAULT: "#B4E6D8", // Pale Sea Green
           foreground: "#1F2937",
         },
       },
