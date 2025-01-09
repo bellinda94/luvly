@@ -7,6 +7,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ProfileCardProps {
   name: string;
@@ -15,6 +22,7 @@ interface ProfileCardProps {
   bio: string;
   verified: boolean;
   imageUrl: string;
+  images: string[];
   onLike: () => void;
   onPass: () => void;
   preferences?: {
@@ -31,6 +39,7 @@ export const ProfileCard = ({
   bio,
   verified,
   imageUrl,
+  images,
   onLike,
   onPass,
   preferences,
@@ -97,6 +106,25 @@ export const ProfileCard = ({
               {verified && <CheckCircle className="w-5 h-5 text-primary" />}
             </DialogTitle>
           </DialogHeader>
+          
+          <Carousel className="w-full max-w-xs mx-auto">
+            <CarouselContent>
+              {images.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="aspect-[3/4] w-full">
+                    <img
+                      src={image}
+                      alt={`${name} ${index + 1}`}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+
           <div className="grid gap-4 py-4">
             <div className="space-y-2">
               <h4 className="font-medium text-primary">Über mich</h4>

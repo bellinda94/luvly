@@ -11,6 +11,11 @@ const mockProfiles = [
     bio: "Adventure seeker & coffee enthusiast",
     verified: true,
     imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    images: [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+    ],
     preferences: {
       ageRange: "25-35",
       lookingFor: "Langzeitbeziehung",
@@ -25,6 +30,11 @@ const mockProfiles = [
     bio: "Photography & hiking",
     verified: false,
     imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    images: [
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
+    ],
     preferences: {
       ageRange: "27-35",
       lookingFor: "Dating",
