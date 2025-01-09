@@ -95,14 +95,13 @@ export const SwipeInterface = () => {
               onPass={handlePass}
               extraButton={
                 <Button
-                  variant="outline"
                   size="icon"
                   onClick={handleUndo}
                   disabled={!canUndo}
-                  className="h-12 w-12"
+                  className="h-10 w-10 text-muted-foreground hover:text-foreground"
                   title="Rückgängig machen"
                 >
-                  <RotateCcw className="w-6 h-6" />
+                  <RotateCcw className="w-4 h-4" />
                 </Button>
               }
             />

@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -86,7 +86,7 @@ export const ProfileCard = ({
         </div>
         
         <div className="flex items-center p-4 bg-white">
-          <div className="ml-8">
+          <div className="ml-2">
             {extraButton && (
               <button
                 onClick={(e) => {
@@ -95,7 +95,7 @@ export const ProfileCard = ({
                     extraButton.props.onClick(e);
                   }
                 }}
-                className="h-12 w-12 flex items-center justify-center rounded-full bg-transparent hover:bg-muted/80 transition-colors"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-transparent hover:bg-muted/80 transition-colors"
                 disabled={extraButton.props.disabled}
                 title={extraButton.props.title}
               >
@@ -123,7 +123,7 @@ export const ProfileCard = ({
               <Heart className="w-6 h-6 text-white" />
             </button>
           </div>
-          <div className="w-[68px]" /> {/* Spacer to balance the layout */}
+          <div className="w-[40px]" /> {/* Spacer to balance the layout */}
         </div>
       </div>
 
