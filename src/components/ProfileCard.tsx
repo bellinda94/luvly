@@ -107,7 +107,7 @@ export const ProfileCard = ({
             </DialogTitle>
           </DialogHeader>
           
-          <Carousel className="w-full max-w-xs mx-auto">
+          <Carousel className="w-full max-w-[300px] mx-auto">
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
