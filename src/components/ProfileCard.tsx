@@ -107,23 +107,25 @@ export const ProfileCard = ({
             </DialogTitle>
           </DialogHeader>
           
-          <Carousel className="w-full max-w-[300px] mx-auto" opts={{ loop: true }}>
-            <CarouselContent>
-              {images.map((image, index) => (
-                <CarouselItem key={index}>
-                  <div className="aspect-[3/4] w-full min-h-[250px] h-[60vh]">
-                    <img
-                      src={image}
-                      alt={`${name} ${index + 1}`}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <div className="relative">
+            <Carousel className="w-full max-w-[300px] mx-auto" opts={{ loop: true }}>
+              <CarouselContent>
+                {images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <div className="aspect-[3/4] w-full min-h-[250px] h-[60vh]">
+                      <img
+                        src={image}
+                        alt={`${name} ${index + 1}`}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
 
           <div className="grid gap-4 py-4">
             <div className="space-y-2">
