@@ -64,6 +64,7 @@ export const SwipeInterface = () => {
   const handlePass = () => {
     const action: Action = { type: 'pass', profileId: mockProfiles[currentIndex].id };
     setActions([...actions, action]);
+    toast.error("Passed! 👋", { duration: 2500 });
     setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
   };
 
