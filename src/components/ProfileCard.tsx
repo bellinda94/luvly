@@ -99,7 +99,7 @@ export const ProfileCard = ({
       </div>
 
       <Dialog open={showDetails} onOpenChange={setShowDetails}>
-        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[425px] w-[95vw] max-h-[90vh] overflow-y-auto rounded-lg sm:rounded-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               {name}, {age}
