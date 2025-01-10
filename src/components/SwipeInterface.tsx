@@ -90,24 +90,22 @@ export const SwipeInterface = () => {
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
       <div className="max-w-sm mx-auto">
         {currentProfile && (
-          <>
-            <ProfileCard
-              {...currentProfile}
-              onLike={handleLike}
-              onPass={handlePass}
-              extraButton={
-                <Button
-                  size="icon"
-                  onClick={handleUndo}
-                  disabled={!canUndo}
-                  className="h-10 w-10 text-muted-foreground hover:text-foreground"
-                  title="Rückgängig machen"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-              }
-            />
-          </>
+          <ProfileCard
+            {...currentProfile}
+            onLike={handleLike}
+            onPass={handlePass}
+            extraButton={
+              <Button
+                size="icon"
+                onClick={handleUndo}
+                disabled={!canUndo}
+                className="h-10 w-10 text-muted-foreground hover:text-foreground"
+                title="Rückgängig machen"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+            }
+          />
         )}
       </div>
     </div>
