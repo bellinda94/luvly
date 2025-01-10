@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -276,6 +276,7 @@ export const ProfileCard = ({
                 className="w-full justify-start" 
                 onClick={handleDirectMessage}
               >
+                <MessageCircle className="mr-2 h-4 w-4" />
                 {name} eine Nachricht schreiben
               </Button>
               <Button 
@@ -283,6 +284,7 @@ export const ProfileCard = ({
                 className="w-full justify-start" 
                 onClick={handleShare}
               >
+                <Share2 className="mr-2 h-4 w-4" />
                 {name}s Profil teilen
               </Button>
               <Button 
@@ -290,6 +292,7 @@ export const ProfileCard = ({
                 className="w-full justify-start" 
                 onClick={handleBlock}
               >
+                <Shield className="mr-2 h-4 w-4" />
                 {name} blockieren
               </Button>
               <Button 
@@ -297,6 +300,7 @@ export const ProfileCard = ({
                 className="w-full justify-start text-destructive" 
                 onClick={handleReport}
               >
+                <AlertTriangle className="mr-2 h-4 w-4" />
                 {name} melden
               </Button>
             </div>
