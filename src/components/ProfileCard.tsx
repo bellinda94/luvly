@@ -91,7 +91,19 @@ export const ProfileCard = ({
               <h3 className="text-2xl font-semibold">{name}, {age}</h3>
             </div>
             <p className="text-sm text-white/90 mb-2">{distance} away</p>
-            <p className="text-sm text-white/80">{bio}</p>
+            <p className="text-sm text-white/80 mb-3">{bio}</p>
+            {preferences?.interests && (
+              <div className="flex flex-wrap gap-2">
+                {preferences.interests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium text-white"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         
