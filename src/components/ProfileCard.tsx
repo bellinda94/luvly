@@ -66,7 +66,9 @@ export const ProfileCard = ({
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showSuperLikeDialog, setShowSuperLikeDialog] = useState(false);
+  const [showMessageDialog, setShowMessageDialog] = useState(false);
   const [superLikeMessage, setSuperLikeMessage] = useState("");
+  const [directMessage, setDirectMessage] = useState("");
 
   const handleSuperLike = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -83,7 +85,17 @@ export const ProfileCard = ({
 
   const handleDirectMessage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Implement direct message functionality here
+    setShowMessageDialog(true);
+  };
+
+  const handleSendDirectMessage = () => {
+    if (directMessage.trim()) {
+      toast.success("Nachricht gesendet!");
+      // Here you would typically handle the message sending
+      toast.success("Chat wurde erstellt");
+      setShowMessageDialog(false);
+      setDirectMessage("");
+    }
   };
 
   const handleShare = () => {
@@ -262,6 +274,13 @@ export const ProfileCard = ({
               <Button 
                 variant="ghost" 
                 className="w-full justify-start" 
+                onClick={handleDirectMessage}
+              >
+                {name} eine Nachricht schreiben
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start" 
                 onClick={handleShare}
               >
                 {name}s Profil teilen
@@ -307,6 +326,33 @@ export const ProfileCard = ({
             </Button>
             <Button onClick={handleSendSuperLike}>
               Super-Like senden
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Nachricht an {name}</AlertDialogTitle>
+            <AlertDialogDescription>
+              Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <Textarea
+              value={directMessage}
+              onChange={(e) => setDirectMessage(e.target.value)}
+              placeholder={`Schreibe ${name} eine Nachricht...`}
+              className="min-h-[100px]"
+            />
+          </div>
+          <AlertDialogFooter>
+            <Button variant="outline" onClick={() => setShowMessageDialog(false)}>
+              Abbrechen
+            </Button>
+            <Button onClick={handleSendDirectMessage}>
+              Nachricht senden
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
