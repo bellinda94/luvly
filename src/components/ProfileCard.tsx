@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -38,6 +38,7 @@ interface ProfileCardProps {
     lookingFor?: string;
     interests?: string[];
   };
+  recentlyActive?: boolean;
 }
 
 export const ProfileCard = ({
@@ -52,6 +53,7 @@ export const ProfileCard = ({
   onPass,
   extraButton,
   preferences,
+  recentlyActive = true,
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -68,7 +70,7 @@ export const ProfileCard = ({
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           
           {verified && (
             <div className="absolute top-4 right-4 bg-white/90 p-1 rounded-full">
@@ -76,17 +78,49 @@ export const ProfileCard = ({
             </div>
           )}
           
-          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <div className="absolute bottom-24 left-0 right-0 p-6 text-white">
+            {recentlyActive && (
+              <span className="inline-block px-3 py-1 bg-green-500/20 text-white rounded-full text-sm mb-4">
+                Kürzlich aktiv
+              </span>
+            )}
+            
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-2xl font-semibold">{name}, {age}</h3>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetails(true);
+                }}
+                className="p-1 rounded-full bg-white/10 hover:bg-white/20"
+              >
+                <Info className="w-5 h-5" />
+              </button>
             </div>
+            
+            {preferences?.interests && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {preferences.interests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className={cn(
+                      "px-4 py-1 rounded-full text-sm font-medium",
+                      index === 0 ? "bg-primary text-white" : "bg-gray-700/50 text-white"
+                    )}
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            )}
+            
             <p className="text-sm text-white/90 mb-2">{distance} away</p>
             <p className="text-sm text-white/80">{bio}</p>
           </div>
         </div>
         
-        <div className="absolute bottom-0 left-0 right-0 flex items-center p-4 bg-gradient-to-t from-black/80 to-transparent">
-          <div className="ml-2">
+        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-4 p-4 bg-gradient-to-t from-black/80 to-transparent">
+          <div className="flex items-center justify-center gap-4">
             {extraButton && (
               <button
                 onClick={(e) => {
@@ -95,35 +129,32 @@ export const ProfileCard = ({
                     extraButton.props.onClick(e);
                   }
                 }}
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                className="h-14 w-14 flex items-center justify-center rounded-full bg-white hover:bg-white/90 transition-colors"
                 disabled={extraButton.props.disabled}
                 title={extraButton.props.title}
               >
                 {extraButton.props.children}
               </button>
             )}
-          </div>
-          <div className="flex-1 flex justify-center gap-4">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onPass();
               }}
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white hover:bg-white/90 transition-colors"
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-6 h-6 text-gray-500" />
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onLike();
               }}
-              className="p-3 rounded-full bg-primary hover:bg-primary/90 transition-colors"
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white hover:bg-white/90 transition-colors"
             >
-              <Heart className="w-6 h-6 text-white" />
+              <Heart className="w-6 h-6 text-green-500" />
             </button>
           </div>
-          <div className="w-[40px]" />
         </div>
       </div>
 
