@@ -14,6 +14,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 interface ExtraButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -63,6 +65,21 @@ export const ProfileCard = ({
   const handleDirectMessage = (e: React.MouseEvent) => {
     e.stopPropagation();
     // Implement direct message functionality here
+  };
+
+  const handleShare = () => {
+    toast.success("Profil wurde geteilt");
+    setShowDetails(false);
+  };
+
+  const handleBlock = () => {
+    toast.success(`${name} wurde blockiert`);
+    setShowDetails(false);
+  };
+
+  const handleReport = () => {
+    toast.success("Profil wurde gemeldet");
+    setShowDetails(false);
   };
 
   return (
@@ -221,6 +238,30 @@ export const ProfileCard = ({
               </div>
             )}
             <p className="text-sm text-gray-500">{distance} entfernt</p>
+
+            <div className="space-y-2 pt-4 border-t">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start" 
+                onClick={handleShare}
+              >
+                {name}s Profil teilen
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start" 
+                onClick={handleBlock}
+              >
+                {name} blockieren
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start text-destructive" 
+                onClick={handleReport}
+              >
+                {name} melden
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
