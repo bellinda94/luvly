@@ -347,7 +347,7 @@ export const ProfileCard = ({
               className="min-h-[100px]"
             />
           </div>
-          <AlertDialogFooter className="space-x-4">
+          <AlertDialogFooter>
             <Button variant="outline" onClick={() => setShowMessageDialog(false)}>
               Abbrechen
             </Button>
@@ -360,4 +360,3 @@ export const ProfileCard = ({
     </>
   );
 };
-
