@@ -58,10 +58,10 @@ export const ProfileCard = ({
   return (
     <>
       <div 
-        className="relative w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg animate-fade-in cursor-pointer hover:shadow-xl transition-shadow"
+        className="relative w-full h-full rounded-none sm:rounded-2xl overflow-hidden shadow-lg animate-fade-in cursor-pointer hover:shadow-xl transition-shadow"
         onClick={() => setShowDetails(true)}
       >
-        <div className="relative aspect-[3/4]">
+        <div className="relative w-full h-full">
           <img
             src={imageUrl}
             alt={name}
@@ -85,7 +85,7 @@ export const ProfileCard = ({
           </div>
         </div>
         
-        <div className="flex items-center p-4 bg-white">
+        <div className="absolute bottom-0 left-0 right-0 flex items-center p-4 bg-gradient-to-t from-black/80 to-transparent">
           <div className="ml-2">
             {extraButton && (
               <button
@@ -95,7 +95,7 @@ export const ProfileCard = ({
                     extraButton.props.onClick(e);
                   }
                 }}
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-transparent hover:bg-muted/80 transition-colors"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                 disabled={extraButton.props.disabled}
                 title={extraButton.props.title}
               >
@@ -109,9 +109,9 @@ export const ProfileCard = ({
                 e.stopPropagation();
                 onPass();
               }}
-              className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <X className="w-6 h-6 text-destructive" />
+              <X className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={(e) => {
@@ -123,7 +123,7 @@ export const ProfileCard = ({
               <Heart className="w-6 h-6 text-white" />
             </button>
           </div>
-          <div className="w-[40px]" /> {/* Spacer to balance the layout */}
+          <div className="w-[40px]" />
         </div>
       </div>
 

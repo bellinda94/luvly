@@ -87,8 +87,8 @@ export const SwipeInterface = () => {
   const canUndo = actions.length > 0 && currentIndex > 0;
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
-      <div className="max-w-sm mx-auto">
+    <div className="w-full h-[calc(100vh-4rem)] flex items-center justify-center">
+      <div className="w-full h-full">
         {currentProfile && (
           <ProfileCard
             {...currentProfile}
