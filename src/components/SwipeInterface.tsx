@@ -23,7 +23,6 @@ const mockProfiles = [
       lookingFor: "Langzeitbeziehung",
       interests: ["Reisen", "Fotografie", "Kaffee", "Wandern"],
     },
-    recentlyActive: true,
   },
   {
     id: 2,
@@ -41,9 +40,8 @@ const mockProfiles = [
     preferences: {
       ageRange: "27-35",
       lookingFor: "Dating",
-      interests: ["Fotografie", "Wandern", "Kochen", "Fitness"],
+      interests: ["Fotografie", "Wandern", "Kochen"],
     },
-    recentlyActive: true,
   },
 ];
 
