@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -55,6 +55,16 @@ export const ProfileCard = ({
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
+  const handleSuperLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Implement super like functionality here
+  };
+
+  const handleDirectMessage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Implement direct message functionality here
+  };
+
   return (
     <>
       <div 
@@ -76,7 +86,7 @@ export const ProfileCard = ({
             </div>
           )}
           
-          <div className="absolute bottom-32 left-0 right-0 p-6 text-white">
+          <div className="absolute bottom-24 left-0 right-0 p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-2xl font-semibold">{name}, {age}</h3>
             </div>
@@ -86,44 +96,55 @@ export const ProfileCard = ({
         </div>
         
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent">
-          <div className="ml-2">
-            {extraButton && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (extraButton.props.onClick) {
-                    extraButton.props.onClick(e);
-                  }
-                }}
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                disabled={extraButton.props.disabled}
-                title={extraButton.props.title}
-              >
-                {extraButton.props.children}
-              </button>
-            )}
-          </div>
-          <div className="flex-1 flex justify-center gap-4">
+          <div className="flex justify-center items-center gap-4">
+            <div className="ml-2">
+              {extraButton && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (extraButton.props.onClick) {
+                      extraButton.props.onClick(e);
+                    }
+                  }}
+                  className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  disabled={extraButton.props.disabled}
+                  title={extraButton.props.title}
+                >
+                  {extraButton.props.children}
+                </button>
+              )}
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onPass();
               }}
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
               <X className="w-6 h-6 text-white" />
+            </button>
+            <button
+              onClick={handleSuperLike}
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            >
+              <Star className="w-6 h-6 text-blue-400" />
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onLike();
               }}
-              className="p-3 rounded-full bg-primary hover:bg-primary/90 transition-colors"
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 transition-colors"
             >
               <Heart className="w-6 h-6 text-white" />
             </button>
+            <button
+              onClick={handleDirectMessage}
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            >
+              <Send className="w-6 h-6 text-white" />
+            </button>
           </div>
-          <div className="w-[40px]" />
         </div>
       </div>
 
