@@ -200,7 +200,7 @@ export const ProfileCard = ({
             </button>
             <button
               onClick={handleDirectMessage}
-              className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors -mt-10"
+              className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
               <Send className="w-6 h-6 text-white" />
             </button>
