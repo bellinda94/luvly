@@ -86,7 +86,7 @@ export const ProfileCard = ({
             </div>
           )}
           
-          <div className="absolute bottom-12 left-0 right-0 p-6 text-white">
+          <div className="absolute bottom-24 left-0 right-0 p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-2xl font-semibold">{name}, {age}</h3>
             </div>
