@@ -16,6 +16,15 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ExtraButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -56,10 +65,20 @@ export const ProfileCard = ({
   preferences,
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showSuperLikeDialog, setShowSuperLikeDialog] = useState(false);
+  const [superLikeMessage, setSuperLikeMessage] = useState("");
 
   const handleSuperLike = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Implement super like functionality here
+    setShowSuperLikeDialog(true);
+  };
+
+  const handleSendSuperLike = () => {
+    toast.success("Super-Like gesendet! 🌟");
+    // Here you would typically handle the chat creation
+    toast.success("Chat wurde erstellt");
+    setShowSuperLikeDialog(false);
+    setSuperLikeMessage("");
   };
 
   const handleDirectMessage = (e: React.MouseEvent) => {
@@ -265,6 +284,33 @@ export const ProfileCard = ({
           </div>
         </DialogContent>
       </Dialog>
+
+      <AlertDialog open={showSuperLikeDialog} onOpenChange={setShowSuperLikeDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Super-Like an {name} senden</AlertDialogTitle>
+            <AlertDialogDescription>
+              Schreibe {name} eine persönliche Nachricht. Der Chat wird automatisch erstellt.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <Textarea
+              value={superLikeMessage}
+              onChange={(e) => setSuperLikeMessage(e.target.value)}
+              placeholder={`Schreibe ${name} eine Nachricht...`}
+              className="min-h-[100px]"
+            />
+          </div>
+          <AlertDialogFooter>
+            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)}>
+              Abbrechen
+            </Button>
+            <Button onClick={handleSendSuperLike}>
+              Super-Like senden
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
