@@ -57,16 +57,18 @@ export const SwipeInterface = () => {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
-      <div className="max-w-sm mx-auto">
+      <div className="max-w-sm mx-auto relative">
         {currentProfile && (
-          <ProfileCard
-            {...currentProfile}
-            onLike={handleLike}
-            onPass={handlePass}
-            extraButton={
-              <UndoButton onClick={handleUndo} disabled={!canUndo} />
-            }
-          />
+          <>
+            <ProfileCard
+              {...currentProfile}
+              onLike={handleLike}
+              onPass={handlePass}
+              extraButton={
+                <UndoButton onClick={handleUndo} disabled={!canUndo} />
+              }
+            />
+          </>
         )}
       </div>
     </div>
