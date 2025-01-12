@@ -43,6 +43,7 @@ interface ProfileCardProps {
   images: string[];
   onLike: () => void;
   onPass: () => void;
+  onMessage?: () => void;
   extraButton?: React.ReactElement<ExtraButtonProps>;
   preferences?: {
     ageRange?: string;
@@ -61,6 +62,7 @@ export const ProfileCard = ({
   images,
   onLike,
   onPass,
+  onMessage,
   extraButton,
   preferences,
 }: ProfileCardProps) => {
@@ -88,6 +90,9 @@ export const ProfileCard = ({
 
   const handleSendDirectMessage = () => {
     if (directMessage.trim()) {
+      if (onMessage) {
+        onMessage();
+      }
       toast.success("Nachricht gesendet!");
       setShowMessageDialog(false);
       setDirectMessage("");

@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { ProfileCard } from "@/components/ProfileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -196,6 +195,22 @@ const MatchesView = () => {
     });
   };
 
+  const handleMessage = (profile, sourceArray, setSourceArray) => {
+    const isAlreadyMatched = myMatches.some(match => match.name === profile.name);
+    
+    if (!isAlreadyMatched) {
+      setMyMatches(prevMatches => [...prevMatches, profile]);
+      toast.success(`${profile.name} wurde zu deinen Matches hinzugefügt`, {
+        duration: 2500
+      });
+    }
+
+    // Hier würde normalerweise die Chat-Eröffnung erfolgen
+    toast.success(`Chat mit ${profile.name} wurde eröffnet`, {
+      duration: 2500
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-6">
       <Tabs defaultValue="matches" className="w-full">
@@ -213,6 +228,7 @@ const MatchesView = () => {
                   {...profile}
                   onLike={() => handleLike(profile, matches, setMatches)}
                   onPass={() => handlePass(profile, matches, setMatches)}
+                  onMessage={() => handleMessage(profile, matches, setMatches)}
                 />
               </div>
             ))}
@@ -237,6 +253,7 @@ const MatchesView = () => {
                   {...profile}
                   onLike={() => handleLike(profile, myMatches, setMyMatches)}
                   onPass={() => handlePass(profile, myMatches, setMyMatches)}
+                  onMessage={() => handleMessage(profile, myMatches, setMyMatches)}
                 />
               </div>
             ))}
@@ -261,6 +278,7 @@ const MatchesView = () => {
                   {...profile}
                   onLike={() => handleLike(profile, topPicks, setTopPicks)}
                   onPass={() => handlePass(profile, topPicks, setTopPicks)}
+                  onMessage={() => handleMessage(profile, topPicks, setTopPicks)}
                 />
               </div>
             ))}
