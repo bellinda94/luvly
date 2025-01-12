@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { DoubleHeartIcon } from "./icons/DoubleHeartIcon";
 
 interface ExtraButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -187,22 +188,7 @@ export const ProfileCard = ({
               onClick={handleSuperLike}
               className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="w-8 h-8 text-white"
-              >
-                <path d="M7 21h9.5a4.5 4.5 0 0 0 4.5-4.5c0-1.42-.66-2.69-1.69-3.5 1.03-.81 1.69-2.08 1.69-3.5A4.5 4.5 0 0 0 16.5 5H7v16Z"/>
-                <path d="m4 9 3-3 3 3"/>
-                <path d="M7 21V6"/>
-              </svg>
+              <DoubleHeartIcon className="w-8 h-8 text-white" />
             </button>
             <button
               onClick={(e) => {
