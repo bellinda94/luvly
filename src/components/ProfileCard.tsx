@@ -187,7 +187,7 @@ export const ProfileCard = ({
               onClick={handleSuperLike}
               className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <Star className="w-6 h-6 text-blue-400" />
+              <Star className="w-6 h-6 text-primary" />
             </button>
             <button
               onClick={(e) => {
