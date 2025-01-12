@@ -3,7 +3,6 @@ import { ProfileCard } from "@/components/ProfileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const MatchesView = () => {
-  // Example data - in a real app this would come from your backend
   const matches = [
     {
       name: "Sarah",
@@ -115,6 +114,40 @@ const MatchesView = () => {
     }
   ];
 
+  // New array for user's own matches
+  const myMatches = [
+    {
+      name: "Laura",
+      age: 28,
+      distance: "1 km",
+      bio: "Passionate musician and coffee lover. Always up for concerts and trying new cafés.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      images: [
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+      ],
+      preferences: {
+        interests: ["Musik", "Kaffee", "Konzerte", "Kunst"]
+      }
+    },
+    {
+      name: "Nina",
+      age: 26,
+      distance: "3 km",
+      bio: "Digital nomad and language enthusiast. Looking for someone to explore the world with.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+      images: [
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+      ],
+      preferences: {
+        interests: ["Reisen", "Sprachen", "Fotografie", "Kultur"]
+      }
+    }
+  ];
+
   const handleLike = () => {
     // Handle like action
   };
@@ -128,6 +161,7 @@ const MatchesView = () => {
       <Tabs defaultValue="matches" className="w-full">
         <TabsList className="w-full mb-6">
           <TabsTrigger value="matches" className="flex-1">Matches</TabsTrigger>
+          <TabsTrigger value="my-matches" className="flex-1">Meine Matches</TabsTrigger>
           <TabsTrigger value="top-picks" className="flex-1">Top Picks</TabsTrigger>
         </TabsList>
         
@@ -150,6 +184,30 @@ const MatchesView = () => {
               </h3>
               <p className="text-gray-600">
                 Swipe weiter, um neue Leute kennenzulernen!
+              </p>
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="my-matches">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {myMatches.map((profile, index) => (
+              <div key={index} className="h-[500px]">
+                <ProfileCard
+                  {...profile}
+                  onLike={handleLike}
+                  onPass={handlePass}
+                />
+              </div>
+            ))}
+          </div>
+          {myMatches.length === 0 && (
+            <div className="text-center py-8">
+              <h3 className="text-xl font-semibold mb-4">
+                Keine eigenen Matches
+              </h3>
+              <p className="text-gray-600">
+                Du hast noch niemanden gematcht. Fang an zu swipen!
               </p>
             </div>
           )}
