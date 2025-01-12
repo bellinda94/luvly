@@ -14,7 +14,7 @@ export const DoubleHeartIcon = ({ className, ...props }: DoubleHeartIconProps) =
     >
       <path
         d="M14 3C9 3 7 8 7 8s-2-5-7-5c0 5.185 7 11 7 11s7-5.815 7-11"
-        fill="#FFDEE2"
+        fill="none"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -23,7 +23,7 @@ export const DoubleHeartIcon = ({ className, ...props }: DoubleHeartIconProps) =
       />
       <path
         d="M14 3C9 3 7 8 7 8s-2-5-7-5c0 5.185 7 11 7 11s7-5.815 7-11"
-        fill="#FDE1D3"
+        fill="none"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
