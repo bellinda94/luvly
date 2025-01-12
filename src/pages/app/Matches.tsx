@@ -9,7 +9,7 @@ const MatchesView = () => {
       name: "Sarah",
       age: 25,
       distance: "5 km",
-      bio: "Love hiking and photography",
+      bio: "Love hiking and photography. Always looking for new adventures and beautiful moments to capture through my lens.",
       verified: true,
       imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
       images: [
@@ -17,14 +17,14 @@ const MatchesView = () => {
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
       ],
       preferences: {
-        interests: ["Fotografie", "Wandern", "Reisen"]
+        interests: ["Fotografie", "Wandern", "Reisen", "Kunst"]
       }
     },
     {
       name: "Emma",
       age: 28,
       distance: "3 km",
-      bio: "Coffee enthusiast and book lover",
+      bio: "Coffee enthusiast and book lover. Looking for someone to share cozy café mornings and interesting discussions.",
       verified: true,
       imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
       images: [
@@ -32,7 +32,37 @@ const MatchesView = () => {
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
       ],
       preferences: {
-        interests: ["Bücher", "Kaffee", "Kunst"]
+        interests: ["Bücher", "Kaffee", "Kunst", "Musik"]
+      }
+    },
+    {
+      name: "Julia",
+      age: 24,
+      distance: "7 km",
+      bio: "Yoga teacher and plant mom. Seeking balance in life and someone to share peaceful moments with.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+      images: [
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+      ],
+      preferences: {
+        interests: ["Yoga", "Meditation", "Nachhaltigkeit", "Kochen"]
+      }
+    },
+    {
+      name: "Marie",
+      age: 27,
+      distance: "4 km",
+      bio: "Tech enthusiast and amateur chef. Love trying new recipes and exploring innovative technologies.",
+      verified: false,
+      imageUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      images: [
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+      ],
+      preferences: {
+        interests: ["Technologie", "Kochen", "Gaming", "Fitness"]
       }
     }
   ];
@@ -42,7 +72,7 @@ const MatchesView = () => {
       name: "Lisa",
       age: 26,
       distance: "8 km",
-      bio: "Art lover and yoga instructor",
+      bio: "Art lover and freelance designer. Passionate about creative projects and meaningful conversations.",
       verified: true,
       imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
       images: [
@@ -50,7 +80,37 @@ const MatchesView = () => {
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
       ],
       preferences: {
-        interests: ["Yoga", "Kunst", "Meditation"]
+        interests: ["Kunst", "Design", "Fotografie", "Reisen"]
+      }
+    },
+    {
+      name: "Sophie",
+      age: 29,
+      distance: "6 km",
+      bio: "Music producer and festival enthusiast. Looking for someone to share adventures and create memories with.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      images: [
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+      ],
+      preferences: {
+        interests: ["Musik", "Festivals", "Reisen", "Sport"]
+      }
+    },
+    {
+      name: "Anna",
+      age: 25,
+      distance: "2 km",
+      bio: "Environmental scientist and outdoor enthusiast. Passionate about sustainability and nature conservation.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      images: [
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+      ],
+      preferences: {
+        interests: ["Umweltschutz", "Wandern", "Nachhaltigkeit", "Fotografie"]
       }
     }
   ];
