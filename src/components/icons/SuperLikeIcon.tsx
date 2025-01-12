@@ -10,40 +10,40 @@ export const SuperLikeIcon = ({ className = "", size = 24 }: { className?: strin
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* First heart (back) */}
+      {/* Back heart */}
       <path
-        d="M11.5 7C11.5 7 9 4.5 6.5 4.5C4 4.5 2 6.5 2 9C2 11.5 4 14 11.5 20"
+        d="M12 6C12 6 9.5 3.5 7 3.5C4.5 3.5 2.5 5.5 2.5 8C2.5 10.5 4.5 13 12 19"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        transform="translate(2 1)"
+        transform="translate(2 2)"
       />
       <path
-        d="M11.5 7C11.5 7 14 4.5 16.5 4.5C19 4.5 21 6.5 21 9C21 11.5 19 14 11.5 20"
+        d="M12 6C12 6 14.5 3.5 17 3.5C19.5 3.5 21.5 5.5 21.5 8C21.5 10.5 19.5 13 12 19"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        transform="translate(2 1)"
+        transform="translate(2 2)"
       />
-      
-      {/* Second heart (front) */}
+
+      {/* Front heart */}
       <path
-        d="M11.5 7C11.5 7 9 4.5 6.5 4.5C4 4.5 2 6.5 2 9C2 11.5 4 14 11.5 20"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M11.5 7C11.5 7 14 4.5 16.5 4.5C19 4.5 21 6.5 21 9C21 11.5 19 14 11.5 20"
+        d="M12 6C12 6 9.5 3.5 7 3.5C4.5 3.5 2.5 5.5 2.5 8C2.5 10.5 4.5 13 12 19"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      
+      <path
+        d="M12 6C12 6 14.5 3.5 17 3.5C19.5 3.5 21.5 5.5 21.5 8C21.5 10.5 19.5 13 12 19"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
       {/* Arrow */}
       <line
         x1="4"
@@ -53,6 +53,7 @@ export const SuperLikeIcon = ({ className = "", size = 24 }: { className?: strin
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
+        transform="rotate(-45, 12, 12)"
       />
       <path
         d="M16 8L20 12L16 16"
@@ -60,6 +61,7 @@ export const SuperLikeIcon = ({ className = "", size = 24 }: { className?: strin
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        transform="rotate(-45, 12, 12) translate(2, 0)"
       />
     </svg>
   );
