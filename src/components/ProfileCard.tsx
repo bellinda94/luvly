@@ -41,7 +41,7 @@ interface ProfileCardProps {
   verified: boolean;
   imageUrl: string;
   images: string[];
-  onLike: () => void;
+  onLike?: () => void;
   onPass: () => void;
   onMessage?: () => void;
   extraButton?: React.ReactElement<ExtraButtonProps>;
@@ -50,6 +50,7 @@ interface ProfileCardProps {
     lookingFor?: string;
     interests?: string[];
   };
+  hideActions?: string[];
 }
 
 export const ProfileCard = ({
@@ -65,6 +66,7 @@ export const ProfileCard = ({
   onMessage,
   extraButton,
   preferences,
+  hideActions = [],
 }: ProfileCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showSuperLikeDialog, setShowSuperLikeDialog] = useState(false);
@@ -190,15 +192,17 @@ export const ProfileCard = ({
             >
               <Star className="w-6 h-6 text-primary" />
             </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onLike();
-              }}
-              className="h-14 w-14 flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 transition-colors"
-            >
-              <Heart className="w-6 h-6 text-white" />
-            </button>
+            {!hideActions.includes('like') && onLike && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onLike();
+                }}
+                className="h-14 w-14 flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 transition-colors"
+              >
+                <Heart className="w-6 h-6 text-white" />
+              </button>
+            )}
             <button
               onClick={handleDirectMessage}
               className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"

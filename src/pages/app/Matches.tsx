@@ -251,9 +251,9 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={() => handleLike(profile, myMatches, setMyMatches)}
                   onPass={() => handlePass(profile, myMatches, setMyMatches)}
                   onMessage={() => handleMessage(profile, myMatches, setMyMatches)}
+                  hideActions={["like"]}
                 />
               </div>
             ))}
