@@ -1,4 +1,5 @@
 import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
+import { SuperLikeIcon } from "./icons/SuperLikeIcon";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
