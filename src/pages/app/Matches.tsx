@@ -2,10 +2,10 @@ import { Card } from "@/components/ui/card";
 import { ProfileCard } from "@/components/ProfileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const MatchesView = () => {
-  const { toast } = useToast();
   const [myMatches, setMyMatches] = useState([
     {
       name: "Laura",
@@ -150,33 +150,46 @@ const MatchesView = () => {
     }
   ]);
 
-  const handleLike = (profile) => {
+  const handleLike = (profile, sourceArray, setSourceArray) => {
     const isAlreadyMatched = myMatches.some(match => match.name === profile.name);
     
     if (!isAlreadyMatched) {
+      const previousState = [...myMatches];
       setMyMatches(prevMatches => [...prevMatches, profile]);
-      toast({
-        title: "Neues Match!",
-        description: `Du hast ${profile.name} erfolgreich gematcht.`,
+      
+      toast.success("Liked! 💖", {
+        duration: 2500,
+        action: {
+          label: "Rückgängig",
+          onClick: () => {
+            setMyMatches(previousState);
+          }
+        }
       });
     }
   };
 
   const handlePass = (profile, sourceArray, setSourceArray) => {
-    // Remove from source array if it exists there
+    const previousSourceState = [...sourceArray];
+    const previousMyMatchesState = [...myMatches];
+
     setSourceArray(prevArray => {
       const updatedArray = prevArray.filter(item => item.name !== profile.name);
       if (updatedArray.length !== prevArray.length) {
-        toast({
-          title: "Match aufgehoben",
-          description: `Match mit ${profile.name} wurde aufgehoben.`,
+        toast("Match aufgehoben", {
           duration: 2000,
+          action: {
+            label: "Rückgängig",
+            onClick: () => {
+              setSourceArray(previousSourceState);
+              setMyMatches(previousMyMatchesState);
+            }
+          }
         });
       }
       return updatedArray;
     });
 
-    // Also remove from myMatches if it exists there
     setMyMatches(prevMatches => {
       const updatedMatches = prevMatches.filter(match => match.name !== profile.name);
       return updatedMatches;
@@ -198,7 +211,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={() => handleLike(profile)}
+                  onLike={() => handleLike(profile, matches, setMatches)}
                   onPass={() => handlePass(profile, matches, setMatches)}
                 />
               </div>
@@ -222,7 +235,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={() => handleLike(profile)}
+                  onLike={() => handleLike(profile, myMatches, setMyMatches)}
                   onPass={() => handlePass(profile, myMatches, setMyMatches)}
                 />
               </div>
@@ -246,7 +259,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={() => handleLike(profile)}
+                  onLike={() => handleLike(profile, topPicks, setTopPicks)}
                   onPass={() => handlePass(profile, topPicks, setTopPicks)}
                 />
               </div>
