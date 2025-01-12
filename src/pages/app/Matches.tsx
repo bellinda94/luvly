@@ -39,7 +39,7 @@ const MatchesView = () => {
     }
   ]);
 
-  const matches = [
+  const [matches, setMatches] = useState([
     {
       name: "Sarah",
       age: 25,
@@ -100,9 +100,9 @@ const MatchesView = () => {
         interests: ["Technologie", "Kochen", "Gaming", "Fitness"]
       }
     }
-  ];
+  ]);
 
-  const topPicks = [
+  const [topPicks, setTopPicks] = useState([
     {
       name: "Lisa",
       age: 26,
@@ -148,7 +148,7 @@ const MatchesView = () => {
         interests: ["Umweltschutz", "Wandern", "Nachhaltigkeit", "Fotografie"]
       }
     }
-  ];
+  ]);
 
   const handleLike = (profile) => {
     const isAlreadyMatched = myMatches.some(match => match.name === profile.name);
@@ -162,16 +162,23 @@ const MatchesView = () => {
     }
   };
 
-  const handlePass = (profile) => {
-    setMyMatches(prevMatches => {
-      const updatedMatches = prevMatches.filter(match => match.name !== profile.name);
-      if (updatedMatches.length !== prevMatches.length) {
+  const handlePass = (profile, sourceArray, setSourceArray) => {
+    // Remove from source array if it exists there
+    setSourceArray(prevArray => {
+      const updatedArray = prevArray.filter(item => item.name !== profile.name);
+      if (updatedArray.length !== prevArray.length) {
         toast({
           title: "Match aufgehoben",
           description: `Match mit ${profile.name} wurde aufgehoben.`,
-          duration: 2000, // Set to 2 seconds
+          duration: 2000,
         });
       }
+      return updatedArray;
+    });
+
+    // Also remove from myMatches if it exists there
+    setMyMatches(prevMatches => {
+      const updatedMatches = prevMatches.filter(match => match.name !== profile.name);
       return updatedMatches;
     });
   };
@@ -192,7 +199,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={() => handlePass(profile)}
+                  onPass={() => handlePass(profile, matches, setMatches)}
                 />
               </div>
             ))}
@@ -216,7 +223,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={() => handlePass(profile)}
+                  onPass={() => handlePass(profile, myMatches, setMyMatches)}
                 />
               </div>
             ))}
@@ -240,7 +247,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={() => handlePass(profile)}
+                  onPass={() => handlePass(profile, topPicks, setTopPicks)}
                 />
               </div>
             ))}
