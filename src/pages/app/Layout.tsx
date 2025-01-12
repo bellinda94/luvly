@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from "react-router-dom";
-import { Flame, MessageCircle, UserRound, Settings } from "lucide-react";
+import { Flame, MessageSquare, Star, UserRound, Settings } from "lucide-react";
 
 const AppLayout = () => {
   return (
@@ -33,8 +33,20 @@ const AppLayout = () => {
                   }`
                 }
               >
-                <MessageCircle className="h-6 w-6" />
-                <span>Matches</span>
+                <Star className="h-6 w-6" />
+                <span>Top Picks</span>
+              </NavLink>
+              
+              <NavLink
+                to="/app/chats"
+                className={({ isActive }) =>
+                  `flex flex-col items-center text-sm ${
+                    isActive ? "text-primary" : "text-gray-500"
+                  }`
+                }
+              >
+                <MessageSquare className="h-6 w-6" />
+                <span>Chats</span>
               </NavLink>
               
               <NavLink
