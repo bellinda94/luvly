@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw, HeartHandshake, Send, Share2, Shield, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -187,7 +187,7 @@ export const ProfileCard = ({
               onClick={handleSuperLike}
               className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <Star className="w-6 h-6 text-blue-400" />
+              <HeartHandshake className="w-6 h-6 text-blue-400" />
             </button>
             <button
               onClick={(e) => {
