@@ -34,7 +34,7 @@ const AppLayout = () => {
                 }
               >
                 <Star className="h-6 w-6" />
-                <span>Top Picks</span>
+                <span>Matches</span>
               </NavLink>
               
               <NavLink
