@@ -162,8 +162,18 @@ const MatchesView = () => {
     }
   };
 
-  const handlePass = () => {
-    // Handle pass action
+  const handlePass = (profile) => {
+    // Remove the profile from myMatches if it exists there
+    setMyMatches(prevMatches => {
+      const updatedMatches = prevMatches.filter(match => match.name !== profile.name);
+      if (updatedMatches.length !== prevMatches.length) {
+        toast({
+          title: "Match aufgehoben",
+          description: `Match mit ${profile.name} wurde aufgehoben.`,
+        });
+      }
+      return updatedMatches;
+    });
   };
 
   return (
@@ -182,7 +192,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={handlePass}
+                  onPass={() => handlePass(profile)}
                 />
               </div>
             ))}
@@ -206,7 +216,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={handlePass}
+                  onPass={() => handlePass(profile)}
                 />
               </div>
             ))}
@@ -230,7 +240,7 @@ const MatchesView = () => {
                 <ProfileCard
                   {...profile}
                   onLike={() => handleLike(profile)}
-                  onPass={handlePass}
+                  onPass={() => handlePass(profile)}
                 />
               </div>
             ))}
