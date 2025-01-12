@@ -1,5 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
-import { SuperLikeIcon } from "./icons/SuperLikeIcon";
+import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Send, Share2, Shield, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -26,6 +25,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { DoubleHeartArrow } from "./icons/DoubleHeartArrow";
 
 interface ExtraButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -188,7 +188,7 @@ export const ProfileCard = ({
               onClick={handleSuperLike}
               className="h-14 w-14 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             >
-              <SuperLikeIcon className="w-6 h-6 text-blue-400" />
+              <DoubleHeartArrow className="w-8 h-8" />
             </button>
             <button
               onClick={(e) => {
