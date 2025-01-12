@@ -1,8 +1,44 @@
 import { Card } from "@/components/ui/card";
 import { ProfileCard } from "@/components/ProfileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const MatchesView = () => {
+  const { toast } = useToast();
+  const [myMatches, setMyMatches] = useState([
+    {
+      name: "Laura",
+      age: 28,
+      distance: "1 km",
+      bio: "Passionate musician and coffee lover. Always up for concerts and trying new cafés.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      images: [
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+      ],
+      preferences: {
+        interests: ["Musik", "Kaffee", "Konzerte", "Kunst"]
+      }
+    },
+    {
+      name: "Nina",
+      age: 26,
+      distance: "3 km",
+      bio: "Digital nomad and language enthusiast. Looking for someone to explore the world with.",
+      verified: true,
+      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+      images: [
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+      ],
+      preferences: {
+        interests: ["Reisen", "Sprachen", "Fotografie", "Kultur"]
+      }
+    }
+  ]);
+
   const matches = [
     {
       name: "Sarah",
@@ -114,42 +150,16 @@ const MatchesView = () => {
     }
   ];
 
-  // New array for user's own matches
-  const myMatches = [
-    {
-      name: "Laura",
-      age: 28,
-      distance: "1 km",
-      bio: "Passionate musician and coffee lover. Always up for concerts and trying new cafés.",
-      verified: true,
-      imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      images: [
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
-      ],
-      preferences: {
-        interests: ["Musik", "Kaffee", "Konzerte", "Kunst"]
-      }
-    },
-    {
-      name: "Nina",
-      age: 26,
-      distance: "3 km",
-      bio: "Digital nomad and language enthusiast. Looking for someone to explore the world with.",
-      verified: true,
-      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
-      images: [
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
-      ],
-      preferences: {
-        interests: ["Reisen", "Sprachen", "Fotografie", "Kultur"]
-      }
+  const handleLike = (profile) => {
+    const isAlreadyMatched = myMatches.some(match => match.name === profile.name);
+    
+    if (!isAlreadyMatched) {
+      setMyMatches(prevMatches => [...prevMatches, profile]);
+      toast({
+        title: "Neues Match!",
+        description: `Du hast ${profile.name} erfolgreich gematcht.`,
+      });
     }
-  ];
-
-  const handleLike = () => {
-    // Handle like action
   };
 
   const handlePass = () => {
@@ -171,7 +181,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={handleLike}
+                  onLike={() => handleLike(profile)}
                   onPass={handlePass}
                 />
               </div>
@@ -195,7 +205,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={handleLike}
+                  onLike={() => handleLike(profile)}
                   onPass={handlePass}
                 />
               </div>
@@ -219,7 +229,7 @@ const MatchesView = () => {
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
-                  onLike={handleLike}
+                  onLike={() => handleLike(profile)}
                   onPass={handlePass}
                 />
               </div>
