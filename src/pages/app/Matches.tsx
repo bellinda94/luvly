@@ -3,8 +3,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const MatchesView = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [myMatches, setMyMatches] = useState([
     {
       name: "Laura",
@@ -211,6 +214,23 @@ const MatchesView = () => {
     });
   };
 
+  const filterProfiles = (profiles) => {
+    if (!searchQuery.trim()) return profiles;
+
+    const query = searchQuery.toLowerCase().trim();
+    return profiles.filter((profile) => {
+      const nameMatch = profile.name.toLowerCase().includes(query);
+      const ageMatch = profile.age.toString().includes(query);
+      const bioMatch = profile.bio.toLowerCase().includes(query);
+      const interestsMatch = profile.preferences?.interests?.some(
+        (interest) => interest.toLowerCase().includes(query)
+      );
+      const distanceMatch = profile.distance.toLowerCase().includes(query);
+
+      return nameMatch || ageMatch || bioMatch || interestsMatch || distanceMatch;
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-6">
       <Tabs defaultValue="matches" className="w-full">
@@ -219,10 +239,21 @@ const MatchesView = () => {
           <TabsTrigger value="my-matches" className="flex-1">Meine Matches</TabsTrigger>
           <TabsTrigger value="top-picks" className="flex-1">Top Picks</TabsTrigger>
         </TabsList>
+
+        <div className="mb-6 relative">
+          <Input
+            type="text"
+            placeholder="Suche nach Namen, Alter, Interessen..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+        </div>
         
         <TabsContent value="matches">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {matches.map((profile, index) => (
+            {filterProfiles(matches).map((profile, index) => (
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
@@ -233,13 +264,15 @@ const MatchesView = () => {
               </div>
             ))}
           </div>
-          {matches.length === 0 && (
+          {filterProfiles(matches).length === 0 && (
             <div className="text-center py-8">
               <h3 className="text-xl font-semibold mb-4">
-                Noch keine Matches
+                {searchQuery ? "Keine Ergebnisse gefunden" : "Noch keine Matches"}
               </h3>
               <p className="text-gray-600">
-                Swipe weiter, um neue Leute kennenzulernen!
+                {searchQuery 
+                  ? "Versuche es mit anderen Suchbegriffen"
+                  : "Swipe weiter, um neue Leute kennenzulernen!"}
               </p>
             </div>
           )}
@@ -247,7 +280,7 @@ const MatchesView = () => {
 
         <TabsContent value="my-matches">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {myMatches.map((profile, index) => (
+            {filterProfiles(myMatches).map((profile, index) => (
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
@@ -258,13 +291,15 @@ const MatchesView = () => {
               </div>
             ))}
           </div>
-          {myMatches.length === 0 && (
+          {filterProfiles(myMatches).length === 0 && (
             <div className="text-center py-8">
               <h3 className="text-xl font-semibold mb-4">
-                Keine eigenen Matches
+                {searchQuery ? "Keine Ergebnisse gefunden" : "Keine eigenen Matches"}
               </h3>
               <p className="text-gray-600">
-                Du hast noch niemanden gematcht. Fang an zu swipen!
+                {searchQuery 
+                  ? "Versuche es mit anderen Suchbegriffen"
+                  : "Du hast noch niemanden gematcht. Fang an zu swipen!"}
               </p>
             </div>
           )}
@@ -272,7 +307,7 @@ const MatchesView = () => {
         
         <TabsContent value="top-picks">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {topPicks.map((profile, index) => (
+            {filterProfiles(topPicks).map((profile, index) => (
               <div key={index} className="h-[500px]">
                 <ProfileCard
                   {...profile}
@@ -283,13 +318,15 @@ const MatchesView = () => {
               </div>
             ))}
           </div>
-          {topPicks.length === 0 && (
+          {filterProfiles(topPicks).length === 0 && (
             <div className="text-center py-8">
               <h3 className="text-xl font-semibold mb-4">
-                Keine Top Picks verfügbar
+                {searchQuery ? "Keine Ergebnisse gefunden" : "Keine Top Picks verfügbar"}
               </h3>
               <p className="text-gray-600">
-                Schau später wieder vorbei für neue Vorschläge!
+                {searchQuery 
+                  ? "Versuche es mit anderen Suchbegriffen"
+                  : "Schau später wieder vorbei für neue Vorschläge!"}
               </p>
             </div>
           )}
