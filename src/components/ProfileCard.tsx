@@ -77,8 +77,6 @@ export const ProfileCard = ({
 
   const handleSendSuperLike = () => {
     toast.success("Super-Like gesendet! 🌟");
-    // Here you would typically handle the chat creation
-    toast.success("Chat wurde erstellt");
     setShowSuperLikeDialog(false);
     setSuperLikeMessage("");
   };
@@ -91,8 +89,6 @@ export const ProfileCard = ({
   const handleSendDirectMessage = () => {
     if (directMessage.trim()) {
       toast.success("Nachricht gesendet!");
-      // Here you would typically handle the message sending
-      toast.success("Chat wurde erstellt");
       setShowMessageDialog(false);
       setDirectMessage("");
     }
