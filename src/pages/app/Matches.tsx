@@ -163,13 +163,13 @@ const MatchesView = () => {
   };
 
   const handlePass = (profile) => {
-    // Remove the profile from myMatches if it exists there
     setMyMatches(prevMatches => {
       const updatedMatches = prevMatches.filter(match => match.name !== profile.name);
       if (updatedMatches.length !== prevMatches.length) {
         toast({
           title: "Match aufgehoben",
           description: `Match mit ${profile.name} wurde aufgehoben.`,
+          duration: 2000, // Set to 2 seconds
         });
       }
       return updatedMatches;
