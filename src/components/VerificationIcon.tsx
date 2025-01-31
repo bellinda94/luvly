@@ -7,16 +7,16 @@ interface VerificationIconProps {
 }
 
 export const VerificationIcon = ({ status, className }: VerificationIconProps) => {
-  if (status === "pending") {
-    return <CircleX className={cn("w-4 h-4 text-gray-300", className)} />;
+  if (status === true) {
+    // Verified: Colored CheckCircle
+    return <CheckCircle className={cn("w-4 h-4 text-primary", className)} />;
   }
-  return (
-    <CheckCircle 
-      className={cn(
-        "w-4 h-4",
-        status ? "text-primary" : "text-gray-300",
-        className
-      )} 
-    />
-  );
+  
+  if (status === "pending") {
+    // Pending: Gray CheckCircle
+    return <CheckCircle className={cn("w-4 h-4 text-gray-300", className)} />;
+  }
+  
+  // Unverified (false): Gray CircleX
+  return <CircleX className={cn("w-4 h-4 text-gray-300", className)} />;
 };
