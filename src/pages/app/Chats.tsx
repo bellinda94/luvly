@@ -1,4 +1,5 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const ChatsView = () => {
   const chats = [
@@ -13,19 +14,21 @@ const ChatsView = () => {
       </div>
       <div className="grid gap-4">
         {chats.map((chat) => (
-          <Card key={chat.id} className="cursor-pointer hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <img
-                src={chat.imageUrl}
-                alt={chat.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <CardTitle className="text-lg">{chat.name}</CardTitle>
-                <p className="text-sm text-gray-500">{chat.lastMessage}</p>
-              </div>
-            </CardHeader>
-          </Card>
+          <Link to={`/app/chats/${chat.id}`} key={chat.id}>
+            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <img
+                  src={chat.imageUrl}
+                  alt={chat.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <h3 className="text-lg font-semibold">{chat.name}</h3>
+                  <p className="text-sm text-gray-500">{chat.lastMessage}</p>
+                </div>
+              </CardHeader>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
