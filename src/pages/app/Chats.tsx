@@ -1,13 +1,17 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { VerificationIcon } from "@/components/VerificationIcon";
+import { users } from "@/data/users";
 import { cn } from "@/lib/utils";
 
 const ChatsView = () => {
   const chats = [
-    { id: 1, name: "Sarah", lastMessage: "Hey, wie geht's?", imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330", verified: true },
-    { id: 2, name: "Michael", lastMessage: "Was machst du heute?", imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e", verified: "pending" },
-  ];
+    { id: 1, userId: 1, lastMessage: "Hey, wie geht's?" },
+    { id: 2, userId: 2, lastMessage: "Was machst du heute?" },
+  ].map(chat => ({
+    ...chat,
+    user: users[chat.userId]
+  }));
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -21,15 +25,15 @@ const ChatsView = () => {
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="relative">
                   <img
-                    src={chat.imageUrl}
-                    alt={chat.name}
+                    src={chat.user.imageUrl}
+                    alt={chat.user.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    <h3 className="text-lg font-semibold">{chat.name}</h3>
-                    <VerificationIcon status={chat.verified} />
+                    <h3 className="text-lg font-semibold">{chat.user.name}</h3>
+                    <VerificationIcon status={chat.user.verified} />
                   </div>
                   <p className="text-sm text-gray-500">{chat.lastMessage}</p>
                 </div>

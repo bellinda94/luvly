@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { VerificationIcon } from "@/components/VerificationIcon";
+import { users } from "@/data/users";
 
 interface Message {
   id: number;
@@ -15,6 +16,7 @@ interface Message {
 
 const ChatView = () => {
   const { id } = useParams();
+  const chatId = Number(id);
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -25,12 +27,8 @@ const ChatView = () => {
     },
   ]);
 
-  // Simulating user data - in a real app, this would come from your backend
-  const chatPartner = {
-    name: "Sarah",
-    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-    verified: "pending" as const
-  };
+  // Get chat partner data from users
+  const chatPartner = users[chatId];
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
