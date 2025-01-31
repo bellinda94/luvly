@@ -6,11 +6,13 @@ import ChatsView from "./pages/app/Chats";
 import ChatView from "./pages/app/ChatView";
 import ProfileView from "./pages/app/Profile";
 import SettingsView from "./pages/app/Settings";
+import Index from "./pages/Index";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Index />} />
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<SwipeView />} />
           <Route path="matches" element={<MatchesView />} />
