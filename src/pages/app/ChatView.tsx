@@ -1,8 +1,9 @@
-import { ArrowLeft, MoreVertical, Send } from "lucide-react";
+import { ArrowLeft, MoreVertical, Send, CheckCircle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface Message {
   id: number;
@@ -22,6 +23,13 @@ const ChatView = () => {
       timestamp: "17:38",
     },
   ]);
+
+  // Simulating user data - in a real app, this would come from your backend
+  const chatPartner = {
+    name: "Sarah",
+    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    verified: true
+  };
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,12 +58,30 @@ const ChatView = () => {
             </Button>
           </Link>
           <div className="flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-              alt="Profile"
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <span className="font-semibold">Sarah</span>
+            <div className="relative">
+              <img
+                src={chatPartner.imageUrl}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              {chatPartner.verified && (
+                <CheckCircle 
+                  className={cn(
+                    "w-4 h-4 absolute -right-1 -bottom-1",
+                    chatPartner.verified ? "text-primary" : "text-gray-300"
+                  )} 
+                />
+              )}
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold">{chatPartner.name}</span>
+              <CheckCircle 
+                className={cn(
+                  "w-4 h-4",
+                  chatPartner.verified ? "text-primary" : "text-gray-300"
+                )} 
+              />
+            </div>
           </div>
         </div>
         <Button variant="ghost" size="icon">
