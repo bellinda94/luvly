@@ -42,7 +42,7 @@ const ChatView = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b shrink-0">
+      <div className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center gap-3">
           <Link to="/app/chats">
             <Button variant="ghost" size="icon">
@@ -64,7 +64,7 @@ const ChatView = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -87,7 +87,7 @@ const ChatView = () => {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 border-t shrink-0 bg-background">
+      <form onSubmit={handleSendMessage} className="p-4 border-t">
         <div className="flex gap-2">
           <Input
             value={newMessage}
