@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Heart, X, RotateCcw, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
+import { CheckCircle, MessageCircle, Heart, X, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -6,6 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  MessageDialog,
+  MessageDialogContent,
+  MessageDialogHeader,
+  MessageDialogTitle,
+} from "@/components/ui/message-dialog";
 import { useState } from "react";
 import {
   Carousel,
@@ -339,14 +345,14 @@ export const ProfileCard = ({
         </AlertDialogContent>
       </AlertDialog>
 
-      <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
-        <DialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
-          <DialogHeader className="pb-2">
-            <DialogTitle>Nachricht an {name}</DialogTitle>
+      <MessageDialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
+        <MessageDialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
+          <MessageDialogHeader className="pb-2">
+            <MessageDialogTitle>Nachricht an {name}</MessageDialogTitle>
             <p className="text-sm text-muted-foreground">
               Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
             </p>
-          </DialogHeader>
+          </MessageDialogHeader>
           <div className="py-2">
             <Textarea
               value={directMessage}
@@ -363,8 +369,8 @@ export const ProfileCard = ({
               Abbrechen
             </Button>
           </div>
-        </DialogContent>
-      </Dialog>
+        </MessageDialogContent>
+      </MessageDialog>
     </>
   );
 };
