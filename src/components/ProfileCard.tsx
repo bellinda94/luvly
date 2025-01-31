@@ -339,14 +339,14 @@ export const ProfileCard = ({
         </AlertDialogContent>
       </AlertDialog>
 
-      <AlertDialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Nachricht an {name}</AlertDialogTitle>
-            <AlertDialogDescription>
+      <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Nachricht an {name}</DialogTitle>
+            <p className="text-sm text-muted-foreground">
               Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            </p>
+          </DialogHeader>
           <div className="py-4">
             <Textarea
               value={directMessage}
@@ -363,8 +363,8 @@ export const ProfileCard = ({
               Abbrechen
             </Button>
           </div>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
