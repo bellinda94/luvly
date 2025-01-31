@@ -81,7 +81,7 @@ export const ProfileCard = ({
   };
 
   const handleSendSuperLike = () => {
-    toast.success("Super-Like gesendet! 🌟");
+    toast.success("Super-Like gesendet! ");
     setShowSuperLikeDialog(false);
     setSuperLikeMessage("");
   };
@@ -313,26 +313,26 @@ export const ProfileCard = ({
       </Dialog>
 
       <AlertDialog open={showSuperLikeDialog} onOpenChange={setShowSuperLikeDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-h-[90vh] w-[95vw] sm:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Super-Like an {name} senden</AlertDialogTitle>
             <AlertDialogDescription className="text-muted-foreground">
               Schreibe {name} eine persönliche Nachricht. Der Chat wird automatisch erstellt.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="py-6">
+          <div className="py-4">
             <Textarea
               value={superLikeMessage}
               onChange={(e) => setSuperLikeMessage(e.target.value)}
               placeholder={`Schreibe ${name} eine Nachricht...`}
-              className="min-h-[100px]"
+              className="min-h-[100px] rounded-lg border"
             />
           </div>
-          <div className="flex flex-col gap-3">
-            <Button onClick={handleSendSuperLike} className="w-full">
+          <div className="flex flex-col gap-3 mt-2">
+            <Button onClick={handleSendSuperLike} className="w-full h-[36px]">
               Super-Like senden
             </Button>
-            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)} className="w-full">
+            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)} className="w-full h-[36px]">
               Abbrechen
             </Button>
           </div>
@@ -340,26 +340,26 @@ export const ProfileCard = ({
       </AlertDialog>
 
       <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] w-[95vw] sm:w-full">
           <DialogHeader>
             <DialogTitle>Nachricht an {name}</DialogTitle>
             <p className="text-sm text-muted-foreground">
               Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
             </p>
           </DialogHeader>
-          <div className="py-6">
+          <div className="py-4">
             <Textarea
               value={directMessage}
               onChange={(e) => setDirectMessage(e.target.value)}
               placeholder={`Schreibe ${name} eine Nachricht...`}
-              className="min-h-[100px]"
+              className="min-h-[100px] rounded-lg border"
             />
           </div>
-          <div className="flex flex-col gap-3">
-            <Button onClick={handleSendDirectMessage} className="w-full">
+          <div className="flex flex-col gap-3 mt-2">
+            <Button onClick={handleSendDirectMessage} className="w-full h-[36px]">
               Nachricht senden
             </Button>
-            <Button variant="outline" onClick={() => setShowMessageDialog(false)} className="w-full">
+            <Button variant="outline" onClick={() => setShowMessageDialog(false)} className="w-full h-[36px]">
               Abbrechen
             </Button>
           </div>
