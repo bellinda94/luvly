@@ -356,14 +356,14 @@ export const ProfileCard = ({
               className="min-h-[100px]"
             />
           </div>
-          <AlertDialogFooter>
-            <Button variant="outline" onClick={() => setShowMessageDialog(false)}>
-              Abbrechen
-            </Button>
-            <Button onClick={handleSendDirectMessage}>
+          <div className="flex flex-col gap-3">
+            <Button onClick={handleSendDirectMessage} className="w-full">
               Nachricht senden
             </Button>
-          </AlertDialogFooter>
+            <Button variant="outline" onClick={() => setShowMessageDialog(false)} className="w-full">
+              Abbrechen
+            </Button>
+          </div>
         </AlertDialogContent>
       </AlertDialog>
     </>
