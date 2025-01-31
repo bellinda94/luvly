@@ -316,11 +316,11 @@ export const ProfileCard = ({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Super-Like an {name} senden</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="text-muted-foreground">
               Schreibe {name} eine persönliche Nachricht. Der Chat wird automatisch erstellt.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="py-4">
+          <div className="py-6">
             <Textarea
               value={superLikeMessage}
               onChange={(e) => setSuperLikeMessage(e.target.value)}
@@ -328,11 +328,11 @@ export const ProfileCard = ({
               className="min-h-[100px]"
             />
           </div>
-          <AlertDialogFooter>
-            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)}>
+          <AlertDialogFooter className="gap-3 sm:gap-0">
+            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)} className="w-full sm:w-auto">
               Abbrechen
             </Button>
-            <Button onClick={handleSendSuperLike}>
+            <Button onClick={handleSendSuperLike} className="w-full sm:w-auto">
               Super-Like senden
             </Button>
           </AlertDialogFooter>
@@ -347,7 +347,7 @@ export const ProfileCard = ({
               Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
             </p>
           </DialogHeader>
-          <div className="py-4">
+          <div className="py-6">
             <Textarea
               value={directMessage}
               onChange={(e) => setDirectMessage(e.target.value)}
