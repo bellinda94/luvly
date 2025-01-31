@@ -38,7 +38,14 @@ export const users: Record<number, User> = {
     distance: "3 km",
     bio: "Coffee enthusiast and tech lover.",
     imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-    verified: "pending"
+    images: [
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+    ],
+    verified: "pending",
+    preferences: {
+      interests: ["Kaffee", "Technologie", "Musik"]
+    }
   },
   3: {
     id: 3,

@@ -41,7 +41,7 @@ interface ProfileCardProps {
   bio: string;
   verified: boolean | "pending";
   imageUrl: string;
-  images: string[];
+  images?: string[];
   onLike?: () => void;
   onPass: () => void;
   onMessage?: () => void;
@@ -61,7 +61,7 @@ export const ProfileCard = ({
   bio,
   verified,
   imageUrl,
-  images,
+  images = [imageUrl],
   onLike,
   onPass,
   onMessage,
