@@ -132,11 +132,9 @@ export const ProfileCard = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           
-          {verified && (
-            <div className="absolute top-4 right-4 bg-white/90 p-1 rounded-full">
-              <VerificationIcon status={verified} className="w-5 h-5" />
-            </div>
-          )}
+          <div className="absolute top-4 right-4 bg-white/90 p-1 rounded-full">
+            <VerificationIcon status={verified} className="w-5 h-5" />
+          </div>
           
           <div className="absolute bottom-16 left-0 right-0 p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
