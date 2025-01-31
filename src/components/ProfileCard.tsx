@@ -328,14 +328,14 @@ export const ProfileCard = ({
               className="min-h-[100px]"
             />
           </div>
-          <AlertDialogFooter className="gap-3 sm:gap-0">
-            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)} className="w-full sm:w-auto">
-              Abbrechen
-            </Button>
-            <Button onClick={handleSendSuperLike} className="w-full sm:w-auto">
+          <div className="flex flex-col gap-3">
+            <Button onClick={handleSendSuperLike} className="w-full">
               Super-Like senden
             </Button>
-          </AlertDialogFooter>
+            <Button variant="outline" onClick={() => setShowSuperLikeDialog(false)} className="w-full">
+              Abbrechen
+            </Button>
+          </div>
         </AlertDialogContent>
       </AlertDialog>
 
