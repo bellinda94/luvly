@@ -318,14 +318,14 @@ export const ProfileCard = ({
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={showSuperLikeDialog} onOpenChange={setShowSuperLikeDialog}>
-        <AlertDialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
-          <AlertDialogHeader className="pb-2">
-            <AlertDialogTitle>Super-Like an {name} senden</AlertDialogTitle>
-            <AlertDialogDescription className="text-muted-foreground">
+      <MessageDialog open={showSuperLikeDialog} onOpenChange={setShowSuperLikeDialog}>
+        <MessageDialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
+          <MessageDialogHeader className="pb-2">
+            <MessageDialogTitle>Super-Like an {name} senden</MessageDialogTitle>
+            <p className="text-sm text-muted-foreground">
               Schreibe {name} eine persönliche Nachricht. Der Chat wird automatisch erstellt.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            </p>
+          </MessageDialogHeader>
           <div className="py-2">
             <Textarea
               value={superLikeMessage}
@@ -342,8 +342,8 @@ export const ProfileCard = ({
               Abbrechen
             </Button>
           </div>
-        </AlertDialogContent>
-      </AlertDialog>
+        </MessageDialogContent>
+      </MessageDialog>
 
       <MessageDialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
         <MessageDialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
