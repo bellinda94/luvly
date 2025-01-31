@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./pages/app/Layout";
 import SwipeView from "./pages/app/Swipe";
 import MatchesView from "./pages/app/Matches";
@@ -12,7 +12,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Index />} />
+        {/* Redirect root to /app for now since Index page is not ready */}
+        <Route path="/" element={<Navigate to="/app" replace />} />
+        
+        {/* App routes with layout */}
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<SwipeView />} />
           <Route path="matches" element={<MatchesView />} />
