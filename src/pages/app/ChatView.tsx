@@ -64,14 +64,6 @@ const ChatView = () => {
                 alt="Profile"
                 className="w-10 h-10 rounded-full object-cover"
               />
-              {chatPartner.verified && (
-                <CheckCircle 
-                  className={cn(
-                    "w-4 h-4 absolute -right-1 -bottom-1",
-                    chatPartner.verified ? "text-primary" : "text-gray-300"
-                  )} 
-                />
-              )}
             </div>
             <div className="flex items-center gap-1">
               <span className="font-semibold">{chatPartner.name}</span>

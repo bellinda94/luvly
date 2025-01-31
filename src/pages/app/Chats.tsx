@@ -25,14 +25,6 @@ const ChatsView = () => {
                     alt={chat.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
-                  {chat.verified && (
-                    <CheckCircle 
-                      className={cn(
-                        "w-4 h-4 absolute -right-1 -bottom-1",
-                        chat.verified ? "text-primary" : "text-gray-300"
-                      )} 
-                    />
-                  )}
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
