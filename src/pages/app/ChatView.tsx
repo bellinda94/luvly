@@ -1,9 +1,10 @@
-import { ArrowLeft, MoreVertical, Send, CheckCircle } from "lucide-react";
+import { ArrowLeft, MoreVertical, Send } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { VerificationIcon } from "@/components/VerificationIcon";
 
 interface Message {
   id: number;
@@ -28,7 +29,7 @@ const ChatView = () => {
   const chatPartner = {
     name: "Sarah",
     imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-    verified: true
+    verified: "pending" as const
   };
 
   const handleSendMessage = (e: React.FormEvent) => {
@@ -67,12 +68,7 @@ const ChatView = () => {
             </div>
             <div className="flex items-center gap-1">
               <span className="font-semibold">{chatPartner.name}</span>
-              <CheckCircle 
-                className={cn(
-                  "w-4 h-4",
-                  chatPartner.verified ? "text-primary" : "text-gray-300"
-                )} 
-              />
+              <VerificationIcon status={chatPartner.verified} />
             </div>
           </div>
         </div>

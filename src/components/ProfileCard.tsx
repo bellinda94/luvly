@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { VerificationIcon } from "./VerificationIcon";
 
 interface ExtraButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -38,7 +39,7 @@ interface ProfileCardProps {
   age: number;
   distance: string;
   bio: string;
-  verified: boolean;
+  verified: boolean | "pending";
   imageUrl: string;
   images: string[];
   onLike?: () => void;
@@ -133,7 +134,7 @@ export const ProfileCard = ({
           
           {verified && (
             <div className="absolute top-4 right-4 bg-white/90 p-1 rounded-full">
-              <CheckCircle className="w-5 h-5 text-primary" />
+              <VerificationIcon status={verified} className="w-5 h-5" />
             </div>
           )}
           
@@ -218,7 +219,7 @@ export const ProfileCard = ({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               {name}, {age}
-              {verified && <CheckCircle className="w-5 h-5 text-primary" />}
+              <VerificationIcon status={verified} className="w-5 h-5" />
             </DialogTitle>
           </DialogHeader>
           
