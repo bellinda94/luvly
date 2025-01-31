@@ -313,14 +313,14 @@ export const ProfileCard = ({
       </Dialog>
 
       <AlertDialog open={showSuperLikeDialog} onOpenChange={setShowSuperLikeDialog}>
-        <AlertDialogContent className="max-h-[90vh] w-[95vw] sm:w-full">
-          <AlertDialogHeader>
+        <AlertDialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
+          <AlertDialogHeader className="pb-2">
             <AlertDialogTitle>Super-Like an {name} senden</AlertDialogTitle>
             <AlertDialogDescription className="text-muted-foreground">
               Schreibe {name} eine persönliche Nachricht. Der Chat wird automatisch erstellt.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="py-4">
+          <div className="py-2">
             <Textarea
               value={superLikeMessage}
               onChange={(e) => setSuperLikeMessage(e.target.value)}
@@ -328,7 +328,7 @@ export const ProfileCard = ({
               className="min-h-[100px] rounded-lg border"
             />
           </div>
-          <div className="flex flex-col gap-3 mt-2">
+          <div className="flex flex-col gap-3 mt-auto">
             <Button onClick={handleSendSuperLike} className="w-full h-[36px]">
               Super-Like senden
             </Button>
@@ -340,14 +340,14 @@ export const ProfileCard = ({
       </AlertDialog>
 
       <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
-        <DialogContent className="max-h-[90vh] w-[95vw] sm:w-full">
-          <DialogHeader>
+        <DialogContent className="h-[368px] w-[95vw] sm:w-full p-4">
+          <DialogHeader className="pb-2">
             <DialogTitle>Nachricht an {name}</DialogTitle>
             <p className="text-sm text-muted-foreground">
               Schreibe {name} eine Nachricht. Ein Chat wird automatisch erstellt.
             </p>
           </DialogHeader>
-          <div className="py-4">
+          <div className="py-2">
             <Textarea
               value={directMessage}
               onChange={(e) => setDirectMessage(e.target.value)}
@@ -355,7 +355,7 @@ export const ProfileCard = ({
               className="min-h-[100px] rounded-lg border"
             />
           </div>
-          <div className="flex flex-col gap-3 mt-2">
+          <div className="flex flex-col gap-3 mt-auto">
             <Button onClick={handleSendDirectMessage} className="w-full h-[36px]">
               Nachricht senden
             </Button>
