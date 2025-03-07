@@ -1,3 +1,4 @@
+
 export interface User {
   id: number;
   name: string;
@@ -6,7 +7,7 @@ export interface User {
   age: number;
   distance: string;
   bio: string;
-  verified: boolean | "pending";
+  verified: "unverified" | "pending" | "verified";
   preferences?: {
     interests?: string[];
     ageRange?: string;
@@ -26,7 +27,7 @@ export const users: Record<number, User> = {
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
     ],
-    verified: true,
+    verified: "verified",
     preferences: {
       interests: ["Fotografie", "Wandern", "Reisen", "Kunst"]
     }
@@ -58,7 +59,7 @@ export const users: Record<number, User> = {
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
     ],
-    verified: false,
+    verified: "unverified",
     preferences: {
       interests: ["Technologie", "Kochen", "Gaming", "Fitness"]
     }

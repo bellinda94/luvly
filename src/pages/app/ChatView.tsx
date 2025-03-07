@@ -28,13 +28,6 @@ const ChatView = () => {
     },
   ]);
 
-  // Update the type mapping for verification status
-  const mapVerificationStatus = (verified: boolean | "pending"): "unverified" | "pending" | "verified" => {
-    if (verified === true) return "verified";
-    if (verified === "pending") return "pending";
-    return "unverified";
-  };
-
   // Get chat partner data from users
   const chatPartner = users[chatId];
 
@@ -74,7 +67,7 @@ const ChatView = () => {
             </div>
             <div className="flex items-center gap-1">
               <span className="font-semibold">{chatPartner.name}</span>
-              <VerificationIcon status={mapVerificationStatus(chatPartner.verified)} />
+              <VerificationIcon status={chatPartner.verified} />
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 import { toast } from "sonner";
@@ -11,7 +12,7 @@ const mockProfiles = [
     age: 28,
     distance: "3 km",
     bio: "Adventure seeker & coffee enthusiast",
-    verified: true,
+    verified: "verified" as const,
     imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
     images: [
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
@@ -30,7 +31,7 @@ const mockProfiles = [
     age: 31,
     distance: "5 km",
     bio: "Photography & hiking",
-    verified: false,
+    verified: "unverified" as const,
     imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
     images: [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",

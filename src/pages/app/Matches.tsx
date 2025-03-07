@@ -10,10 +10,8 @@ import { users } from "@/data/users";
 const MatchesView = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Get users from the centralized store
   const allUsers = Object.values(users);
   
-  // Filter users based on search query
   const filteredUsers = allUsers.filter(user => 
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.bio.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -49,15 +47,12 @@ const MatchesView = () => {
                 <ProfileCard
                   {...user}
                   onLike={() => {
-                    // Handle like action
                     toast.success(`${user.name} wurde geliked`);
                   }}
                   onPass={() => {
-                    // Handle pass action
                     toast.success(`${user.name} wurde übersprungen`);
                   }}
                   onMessage={() => {
-                    // Handle message action
                     toast.success(`Nachricht an ${user.name} gesendet`);
                   }}
                 />
@@ -85,11 +80,9 @@ const MatchesView = () => {
                 <ProfileCard
                   {...user}
                   onPass={() => {
-                    // Handle pass action
                     toast.success(`${user.name} wurde übersprungen`);
                   }}
                   onMessage={() => {
-                    // Handle message action
                     toast.success(`Nachricht an ${user.name} gesendet`);
                   }}
                   hideActions={["like"]}
@@ -118,15 +111,12 @@ const MatchesView = () => {
                 <ProfileCard
                   {...user}
                   onLike={() => {
-                    // Handle like action
                     toast.success(`${user.name} wurde geliked`);
                   }}
                   onPass={() => {
-                    // Handle pass action
                     toast.success(`${user.name} wurde übersprungen`);
                   }}
                   onMessage={() => {
-                    // Handle message action
                     toast.success(`Nachricht an ${user.name} gesendet`);
                   }}
                 />
