@@ -1,3 +1,4 @@
+
 import { CheckCircle, MessageCircle, Heart, X, Star, Send, Share2, Shield, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -45,7 +46,7 @@ interface ProfileCardProps {
   age: number;
   distance: string;
   bio: string;
-  verified: boolean | "pending";
+  verified: "unverified" | "pending" | "verified";
   imageUrl: string;
   images?: string[];
   onLike?: () => void;

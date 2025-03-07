@@ -1,3 +1,4 @@
+
 import { ArrowLeft, MoreVertical, Send } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,13 @@ const ChatView = () => {
       timestamp: "17:38",
     },
   ]);
+
+  // Update the type mapping for verification status
+  const mapVerificationStatus = (verified: boolean | "pending"): "unverified" | "pending" | "verified" => {
+    if (verified === true) return "verified";
+    if (verified === "pending") return "pending";
+    return "unverified";
+  };
 
   // Get chat partner data from users
   const chatPartner = users[chatId];
@@ -66,7 +74,7 @@ const ChatView = () => {
             </div>
             <div className="flex items-center gap-1">
               <span className="font-semibold">{chatPartner.name}</span>
-              <VerificationIcon status={chatPartner.verified} />
+              <VerificationIcon status={mapVerificationStatus(chatPartner.verified)} />
             </div>
           </div>
         </div>
