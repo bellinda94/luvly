@@ -16,13 +16,8 @@ export const useConversations = () => {
       
       try {
         // Get conversations for the user using the RPC function
-        const { data: conversationsData, error } = await supabase.rpc<
-          Array<Conversation>,
-          { user_id: string }
-        >(
-          'get_conversations_with_details',
-          { user_id: user.id }
-        );
+        const { data: conversationsData, error } = await supabase
+          .rpc('get_conversations_with_details', { user_id: user.id });
 
         if (error) {
           console.error("Error fetching conversations:", error);
@@ -30,7 +25,8 @@ export const useConversations = () => {
         }
 
         if (conversationsData) {
-          setConversations(conversationsData);
+          // Add proper type assertion to ensure the data matches our Conversation[] type
+          setConversations(conversationsData as Conversation[]);
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
