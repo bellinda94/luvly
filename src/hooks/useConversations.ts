@@ -15,9 +15,10 @@ export const useConversations = () => {
       
       try {
         // Get conversations for the user using the RPC function
-        const { data: conversationsData, error } = await supabase.rpc('get_conversations_with_details', {
-          user_id: user.id
-        });
+        const { data: conversationsData, error } = await supabase.rpc(
+          'get_conversations_with_details',
+          { user_id: user.id } as { user_id: string }
+        );
 
         if (error) {
           console.error("Error fetching conversations:", error);
