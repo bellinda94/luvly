@@ -1,3 +1,4 @@
+
 import { ProfileCard } from "@/components/ProfileCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -5,17 +6,16 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { users } from "@/data/users";
+import { useProfiles } from "@/hooks/useProfiles";
 
 const MatchesView = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { profiles, loading } = useProfiles();
   
-  const allUsers = Object.values(users);
-  
-  const filteredUsers = allUsers.filter(user => 
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.bio.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.preferences?.interests?.some(interest => 
+  const filteredProfiles = profiles.filter(profile => 
+    profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    profile.bio.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    profile.preferences?.interests?.some(interest => 
       interest.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
@@ -40,102 +40,110 @@ const MatchesView = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
         </div>
         
-        <TabsContent value="matches">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredUsers.map((user, index) => (
-              <div key={index} className="h-[500px]">
-                <ProfileCard
-                  {...user}
-                  onLike={() => {
-                    toast.success(`${user.name} wurde geliked`);
-                  }}
-                  onPass={() => {
-                    toast.success(`${user.name} wurde übersprungen`);
-                  }}
-                  onMessage={() => {
-                    toast.success(`Nachricht an ${user.name} gesendet`);
-                  }}
-                />
-              </div>
-            ))}
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
           </div>
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-8">
-              <h3 className="text-xl font-semibold mb-4">
-                {searchQuery ? "Keine Ergebnisse gefunden" : "Noch keine Matches"}
-              </h3>
-              <p className="text-gray-600">
-                {searchQuery 
-                  ? "Versuche es mit anderen Suchbegriffen"
-                  : "Swipe weiter, um neue Leute kennenzulernen!"}
-              </p>
-            </div>
-          )}
-        </TabsContent>
+        ) : (
+          <>
+            <TabsContent value="matches">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredProfiles.map((profile) => (
+                  <div key={profile.id} className="h-[500px]">
+                    <ProfileCard
+                      {...profile}
+                      onLike={() => {
+                        toast.success(`${profile.name} wurde geliked`);
+                      }}
+                      onPass={() => {
+                        toast.success(`${profile.name} wurde übersprungen`);
+                      }}
+                      onMessage={() => {
+                        toast.success(`Nachricht an ${profile.name} gesendet`);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+              {filteredProfiles.length === 0 && (
+                <div className="text-center py-8">
+                  <h3 className="text-xl font-semibold mb-4">
+                    {searchQuery ? "Keine Ergebnisse gefunden" : "Noch keine Matches"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {searchQuery 
+                      ? "Versuche es mit anderen Suchbegriffen"
+                      : "Swipe weiter, um neue Leute kennenzulernen!"}
+                  </p>
+                </div>
+              )}
+            </TabsContent>
 
-        <TabsContent value="my-matches">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredUsers.map((user, index) => (
-              <div key={index} className="h-[500px]">
-                <ProfileCard
-                  {...user}
-                  onPass={() => {
-                    toast.success(`${user.name} wurde übersprungen`);
-                  }}
-                  onMessage={() => {
-                    toast.success(`Nachricht an ${user.name} gesendet`);
-                  }}
-                  hideActions={["like"]}
-                />
+            <TabsContent value="my-matches">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredProfiles.map((profile) => (
+                  <div key={profile.id} className="h-[500px]">
+                    <ProfileCard
+                      {...profile}
+                      onPass={() => {
+                        toast.success(`${profile.name} wurde übersprungen`);
+                      }}
+                      onMessage={() => {
+                        toast.success(`Nachricht an ${profile.name} gesendet`);
+                      }}
+                      hideActions={["like"]}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-8">
-              <h3 className="text-xl font-semibold mb-4">
-                {searchQuery ? "Keine Ergebnisse gefunden" : "Keine eigenen Matches"}
-              </h3>
-              <p className="text-gray-600">
-                {searchQuery 
-                  ? "Versuche es mit anderen Suchbegriffen"
-                  : "Du hast noch niemanden gematcht. Fang an zu swipen!"}
-              </p>
-            </div>
-          )}
-        </TabsContent>
-        
-        <TabsContent value="top-picks">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredUsers.map((user, index) => (
-              <div key={index} className="h-[500px]">
-                <ProfileCard
-                  {...user}
-                  onLike={() => {
-                    toast.success(`${user.name} wurde geliked`);
-                  }}
-                  onPass={() => {
-                    toast.success(`${user.name} wurde übersprungen`);
-                  }}
-                  onMessage={() => {
-                    toast.success(`Nachricht an ${user.name} gesendet`);
-                  }}
-                />
+              {filteredProfiles.length === 0 && (
+                <div className="text-center py-8">
+                  <h3 className="text-xl font-semibold mb-4">
+                    {searchQuery ? "Keine Ergebnisse gefunden" : "Keine eigenen Matches"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {searchQuery 
+                      ? "Versuche es mit anderen Suchbegriffen"
+                      : "Du hast noch niemanden gematcht. Fang an zu swipen!"}
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+            
+            <TabsContent value="top-picks">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredProfiles.map((profile) => (
+                  <div key={profile.id} className="h-[500px]">
+                    <ProfileCard
+                      {...profile}
+                      onLike={() => {
+                        toast.success(`${profile.name} wurde geliked`);
+                      }}
+                      onPass={() => {
+                        toast.success(`${profile.name} wurde übersprungen`);
+                      }}
+                      onMessage={() => {
+                        toast.success(`Nachricht an ${profile.name} gesendet`);
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-8">
-              <h3 className="text-xl font-semibold mb-4">
-                {searchQuery ? "Keine Ergebnisse gefunden" : "Keine Top Picks verfügbar"}
-              </h3>
-              <p className="text-gray-600">
-                {searchQuery 
-                  ? "Versuche es mit anderen Suchbegriffen"
-                  : "Schau später wieder vorbei für neue Vorschläge!"}
-              </p>
-            </div>
-          )}
-        </TabsContent>
+              {filteredProfiles.length === 0 && (
+                <div className="text-center py-8">
+                  <h3 className="text-xl font-semibold mb-4">
+                    {searchQuery ? "Keine Ergebnisse gefunden" : "Keine Top Picks verfügbar"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {searchQuery 
+                      ? "Versuche es mit anderen Suchbegriffen"
+                      : "Schau später wieder vorbei für neue Vorschläge!"}
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+          </>
+        )}
       </Tabs>
     </div>
   );

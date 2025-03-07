@@ -4,47 +4,8 @@ import { ProfileCard } from "./ProfileCard";
 import { toast } from "sonner";
 import { RotateCcw } from "lucide-react";
 import { Button } from "./ui/button";
-
-const mockProfiles = [
-  {
-    id: 1,
-    name: "Sarah",
-    age: 28,
-    distance: "3 km",
-    bio: "Adventure seeker & coffee enthusiast",
-    verified: "verified" as const,
-    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-    images: [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9",
-    ],
-    preferences: {
-      ageRange: "25-35",
-      lookingFor: "Langzeitbeziehung",
-      interests: ["Reisen", "Fotografie", "Kaffee", "Wandern"],
-    },
-  },
-  {
-    id: 2,
-    name: "Michael",
-    age: 31,
-    distance: "5 km",
-    bio: "Photography & hiking",
-    verified: "unverified" as const,
-    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-    images: [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
-    ],
-    preferences: {
-      ageRange: "27-35",
-      lookingFor: "Dating",
-      interests: ["Fotografie", "Wandern", "Kochen"],
-    },
-  },
-];
+import { useProfiles } from "@/hooks/useProfiles";
+import { User } from "@/types/user";
 
 type Action = {
   type: 'like' | 'pass';
@@ -52,21 +13,26 @@ type Action = {
 };
 
 export const SwipeInterface = () => {
+  const { profiles, loading } = useProfiles();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [actions, setActions] = useState<Action[]>([]);
 
   const handleLike = () => {
-    const action: Action = { type: 'like', profileId: mockProfiles[currentIndex].id };
+    if (!profiles.length) return;
+    
+    const action: Action = { type: 'like', profileId: profiles[currentIndex].id };
     setActions([...actions, action]);
     toast.success("Liked! 💖", { duration: 2500 });
-    setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
+    setCurrentIndex((prev) => Math.min(prev + 1, profiles.length - 1));
   };
 
   const handlePass = () => {
-    const action: Action = { type: 'pass', profileId: mockProfiles[currentIndex].id };
+    if (!profiles.length) return;
+    
+    const action: Action = { type: 'pass', profileId: profiles[currentIndex].id };
     setActions([...actions, action]);
     toast.error("Passed! 👋", { duration: 2500 });
-    setCurrentIndex((prev) => Math.min(prev + 1, mockProfiles.length - 1));
+    setCurrentIndex((prev) => Math.min(prev + 1, profiles.length - 1));
   };
 
   const handleUndo = () => {
@@ -84,7 +50,26 @@ export const SwipeInterface = () => {
     );
   };
 
-  const currentProfile = mockProfiles[currentIndex];
+  if (loading) {
+    return (
+      <div className="w-full h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (profiles.length === 0) {
+    return (
+      <div className="w-full h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold mb-4">Keine Profile verfügbar</h2>
+          <p className="text-muted-foreground">Es gibt aktuell keine Profile zum Anzeigen.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentProfile = profiles[currentIndex];
   const canUndo = actions.length > 0 && currentIndex > 0;
 
   return (
