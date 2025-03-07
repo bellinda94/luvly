@@ -28,17 +28,17 @@ export const useProfiles = () => {
         }
 
         if (data) {
-          // Transform the Supabase profiles into our User type
+          // Transform the Supabase profiles into our User type without mock data
           const transformedProfiles: User[] = data.map((profile) => ({
-            id: parseInt(profile.id.split('-')[0], 16) % 1000, // Generate a numeric ID from UUID
+            id: profile.id, // Use the actual UUID
             name: profile.username || "User",
-            age: Math.floor(Math.random() * 15) + 25, // Generate random age between 25-40
-            distance: `${Math.floor(Math.random() * 10) + 1} km`, // Generate random distance
+            age: null, // No mock age
+            distance: null, // No mock distance
             bio: "No bio provided yet",
-            imageUrl: profile.avatar_url || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+            imageUrl: profile.avatar_url || "/placeholder.svg", // Use placeholder if no image
             verified: "unverified" as const,
             preferences: {
-              interests: ["Dating", "Friendship"],
+              interests: [],
             }
           }));
           
