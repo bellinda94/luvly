@@ -17,7 +17,8 @@ export const useConversations = () => {
       try {
         // Get conversations for the user using the RPC function
         const { data: conversationsData, error } = await supabase.rpc<
-          Array<Conversation>
+          Array<Conversation>,
+          { user_id: string }
         >(
           'get_conversations_with_details',
           { user_id: user.id }
