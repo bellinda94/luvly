@@ -9,7 +9,7 @@ import { User } from "@/types/user";
 
 type Action = {
   type: 'like' | 'pass';
-  profileId: number;
+  profileId: string; // Changed from number to string to match the User type
 };
 
 export const SwipeInterface = () => {
