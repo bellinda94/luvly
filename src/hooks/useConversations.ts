@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Conversation, Match } from "@/types/chat";
+import { Conversation } from "@/types/chat";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const useConversations = () => {
@@ -14,27 +14,19 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Get matches for the user using Edge Function
-        const { data: matchesData } = await supabase.functions.invoke('get_user_matches', {
-          body: { user_id: user.id }
-        });
-
-        if (!matchesData || matchesData.length === 0) {
-          setLoading(false);
-          return;
-        }
-
-        // Get conversations for these matches
-        const { data: conversationsData } = await supabase.rpc('get_conversations_with_details', {
+        // Get conversations for the user using the RPC function
+        const { data: conversationsData, error } = await supabase.rpc('get_conversations_with_details', {
           user_id: user.id
         });
 
-        if (!conversationsData) {
-          setLoading(false);
+        if (error) {
+          console.error("Error fetching conversations:", error);
           return;
         }
 
-        setConversations(conversationsData);
+        if (conversationsData) {
+          setConversations(conversationsData as Conversation[]);
+        }
       } catch (error) {
         console.error("Error loading conversations:", error);
       } finally {
@@ -44,7 +36,7 @@ export const useConversations = () => {
 
     fetchConversations();
     
-    // Set up realtime subscription for new messages
+    // Set up realtime subscription for messages
     const channel = supabase
       .channel('public:messages')
       .on('postgres_changes', 
