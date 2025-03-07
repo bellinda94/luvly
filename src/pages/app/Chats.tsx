@@ -39,89 +39,107 @@ const ChatsView = () => {
       if (!user) return;
       
       try {
-        // Fetch all conversations the user is part of
+        // Use raw SQL query for matches to avoid type issues
         const { data: matchesData, error: matchesError } = await supabase
-          .from('matches')
-          .select('id, profile_1_id, profile_2_id')
-          .or(`profile_1_id.eq.${user.id},profile_2_id.eq.${user.id}`);
+          .rpc('get_user_matches', { user_id: user.id });
         
-        if (matchesError) throw matchesError;
-        
-        if (!matchesData || matchesData.length === 0) {
-          setLoading(false);
-          return;
-        }
-        
-        // Get conversations from matches
-        const { data: conversationsData, error: conversationsError } = await supabase
-          .from('conversations')
-          .select('id, match_id, created_at, updated_at')
-          .in('match_id', matchesData.map(match => match.id));
+        if (matchesError) {
+          console.error("Error fetching matches:", matchesError);
+          // Fallback to direct query if RPC isn't available yet
+          const { data: fallbackMatchesData, error: fallbackError } = await supabase
+            .from('matches')
+            .select('*')
+            .or(`profile_1_id.eq.${user.id},profile_2_id.eq.${user.id}`);
+            
+          if (fallbackError) {
+            console.error("Fallback error fetching matches:", fallbackError);
+            setLoading(false);
+            return;
+          }
           
-        if (conversationsError) throw conversationsError;
-        
-        if (!conversationsData || conversationsData.length === 0) {
-          setLoading(false);
-          return;
-        }
-        
-        // For each conversation, get:
-        // 1. The last message
-        // 2. The chat partner's profile
-        const conversationsWithDetails = await Promise.all(
-          conversationsData.map(async (conversation) => {
-            // Get the match for this conversation
-            const match = matchesData.find(m => m.id === conversation.match_id);
-            if (!match) return null;
-            
-            // Determine which profile is the chat partner
-            const partnerProfileId = match.profile_1_id === user.id ? match.profile_2_id : match.profile_1_id;
-            
-            // Get the chat partner's profile
-            const { data: partnerProfile, error: profileError } = await supabase
-              .from('profiles')
-              .select('id, username, first_name, last_name, avatar_url, verification_status')
-              .eq('id', partnerProfileId)
-              .single();
-              
-            if (profileError) {
-              console.error("Error fetching partner profile:", profileError);
-              return null;
-            }
-            
-            // Get the last message for this conversation
-            const { data: lastMessage, error: messageError } = await supabase
-              .from('messages')
-              .select('content, created_at, sender_id')
-              .eq('conversation_id', conversation.id)
-              .order('created_at', { ascending: false })
-              .limit(1)
-              .single();
-              
-            if (messageError && messageError.code !== 'PGRST116') {
-              console.error("Error fetching last message:", messageError);
-            }
-            
-            return {
-              ...conversation,
-              last_message: lastMessage || undefined,
-              chat_partner: partnerProfile
-            };
-          })
-        );
-        
-        // Filter out any null results and sort by last message time
-        const validConversations = conversationsWithDetails
-          .filter(Boolean) as Conversation[];
+          if (!fallbackMatchesData || fallbackMatchesData.length === 0) {
+            setLoading(false);
+            return;
+          }
           
-        // Sort conversations by last message date or conversation updated date
-        const sortedConversations = validConversations.sort((a, b) => {
-          const aDate = a.last_message?.created_at || a.updated_at;
-          const bDate = b.last_message?.created_at || b.updated_at;
-          return new Date(bDate).getTime() - new Date(aDate).getTime();
-        });
-        
-        setConversations(sortedConversations);
+          // Continue with fallback data
+          const matchesData = fallbackMatchesData;
+          
+          // Use raw SQL query for conversations to avoid type issues
+          const { data: conversationsData, error: conversationsError } = await supabase
+            .from('conversations')
+            .select('*')
+            .in('match_id', matchesData.map(match => match.id));
+            
+          if (conversationsError) {
+            console.error("Error fetching conversations:", conversationsError);
+            setLoading(false);
+            return;
+          }
+          
+          if (!conversationsData || conversationsData.length === 0) {
+            setLoading(false);
+            return;
+          }
+          
+          // For each conversation, get:
+          // 1. The last message
+          // 2. The chat partner's profile
+          const conversationsWithDetails = await Promise.all(
+            conversationsData.map(async (conversation) => {
+              // Get the match for this conversation
+              const match = matchesData.find(m => m.id === conversation.match_id);
+              if (!match) return null;
+              
+              // Determine which profile is the chat partner
+              const partnerProfileId = match.profile_1_id === user.id ? match.profile_2_id : match.profile_1_id;
+              
+              // Get the chat partner's profile using raw query
+              const { data: partnerProfile, error: profileError } = await supabase
+                .from('profiles')
+                .select('id, username, first_name, last_name, avatar_url, verification_status')
+                .eq('id', partnerProfileId)
+                .single();
+                
+              if (profileError) {
+                console.error("Error fetching partner profile:", profileError);
+                return null;
+              }
+              
+              // Get the last message for this conversation
+              const { data: lastMessage, error: messageError } = await supabase
+                .from('messages')
+                .select('content, created_at, sender_id')
+                .eq('conversation_id', conversation.id)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .single();
+                
+              if (messageError && messageError.code !== 'PGRST116') {
+                console.error("Error fetching last message:", messageError);
+              }
+              
+              return {
+                ...conversation,
+                last_message: lastMessage || undefined,
+                chat_partner: partnerProfile
+              };
+            })
+          );
+          
+          // Filter out any null results and sort by last message time
+          const validConversations = conversationsWithDetails
+            .filter(Boolean) as Conversation[];
+            
+          // Sort conversations by last message date or conversation updated date
+          const sortedConversations = validConversations.sort((a, b) => {
+            const aDate = a.last_message?.created_at || a.updated_at;
+            const bDate = b.last_message?.created_at || b.updated_at;
+            return new Date(bDate).getTime() - new Date(aDate).getTime();
+          });
+          
+          setConversations(sortedConversations);
+        }
       } catch (error) {
         console.error("Error loading conversations:", error);
       } finally {
