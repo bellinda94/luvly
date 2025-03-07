@@ -1,8 +1,15 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, Shield, User, MapPin } from "lucide-react";
+import { Bell, Shield, User, MapPin, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const SettingsView = () => {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
   const settingsGroups = [
     {
       title: "Account",
@@ -19,6 +26,16 @@ const SettingsView = () => {
       ],
     },
   ];
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate("/auth");
+      toast.success("Erfolgreich abgemeldet");
+    } catch (error) {
+      toast.error("Fehler beim Abmelden");
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -47,7 +64,9 @@ const SettingsView = () => {
         <Button
           variant="destructive"
           className="w-full mt-6"
+          onClick={handleSignOut}
         >
+          <LogOut className="mr-2 h-4 w-4" />
           Abmelden
         </Button>
       </div>
