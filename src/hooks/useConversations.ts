@@ -16,9 +16,11 @@ export const useConversations = () => {
       
       try {
         // Get conversations for the user using the RPC function
-        const { data: conversationsData, error } = await supabase.rpc(
+        const { data: conversationsData, error } = await supabase.rpc<
+          Array<Conversation>
+        >(
           'get_conversations_with_details',
-          { user_id: user.id } as { user_id: string } // Explicitly cast the parameter type
+          { user_id: user.id }
         );
 
         if (error) {
@@ -27,7 +29,7 @@ export const useConversations = () => {
         }
 
         if (conversationsData) {
-          setConversations(conversationsData as Conversation[]);
+          setConversations(conversationsData);
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
