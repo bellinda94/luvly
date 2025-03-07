@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Conversation } from "@/types/chat";
 import { useAuth } from "@/contexts/AuthContext";
+import '@/types/supabase'; // Import the extended types
 
 export const useConversations = () => {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ export const useConversations = () => {
         // Get conversations for the user using the RPC function
         const { data: conversationsData, error } = await supabase.rpc(
           'get_conversations_with_details',
-          { user_id: user.id } as { user_id: string }
+          { user_id: user.id }
         );
 
         if (error) {
