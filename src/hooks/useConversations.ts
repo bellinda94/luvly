@@ -14,8 +14,8 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Use the correct typing for the RPC call by using an explicit generic type
-        const { data, error } = await supabase.rpc<Conversation[]>(
+        // Korrekter Aufruf der RPC-Methode mit dem richtigen Typen
+        const { data, error } = await supabase.rpc<Conversation[], { user_id: string }>(
           'get_conversations_with_details',
           { user_id: user.id }
         );
