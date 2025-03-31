@@ -3,7 +3,27 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Conversation } from "@/types/chat";
 import { useAuth } from "@/contexts/AuthContext";
-import '@/types/supabase'; // Import the extended types
+
+// Define the return type for our RPC function
+interface ConversationsResponse {
+  id: string;
+  match_id: string;
+  created_at: string;
+  updated_at: string;
+  last_message?: {
+    content: string;
+    created_at: string;
+    sender_id: string;
+  };
+  chat_partner: {
+    id: string;
+    username: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    avatar_url: string | null;
+    verification_status: "unverified" | "pending" | "verified";
+  };
+}
 
 export const useConversations = () => {
   const { user } = useAuth();
@@ -15,17 +35,19 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Get conversations for the user using the RPC function
-        const { data: conversationsData, error } = await (supabase
-          .rpc('get_conversations_with_details', { user_id: user.id }) as any);
+        // Use a generic type parameter to type the RPC function call
+        const { data, error } = await supabase.rpc<ConversationsResponse[]>(
+          'get_conversations_with_details', 
+          { user_id: user.id }
+        );
 
         if (error) {
           console.error("Error fetching conversations:", error);
           return;
         }
 
-        if (conversationsData) {
-          setConversations(conversationsData);
+        if (data) {
+          setConversations(data as Conversation[]);
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
