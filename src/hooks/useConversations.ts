@@ -25,11 +25,6 @@ interface ConversationsResponse {
   };
 }
 
-// Define the input parameters type for our RPC function
-interface UserIdParam {
-  user_id: string;
-}
-
 export const useConversations = () => {
   const { user } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -40,11 +35,9 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Correctly provide both type parameters: input params and return type
-        const { data, error } = await supabase.rpc<UserIdParam, ConversationsResponse[]>(
-          'get_conversations_with_details', 
-          { user_id: user.id }
-        );
+        // Use type assertion to handle the RPC call without generic type parameters
+        const { data, error } = await supabase
+          .rpc('get_conversations_with_details', { user_id: user.id });
 
         if (error) {
           console.error("Error fetching conversations:", error);
