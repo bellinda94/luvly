@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -18,6 +17,23 @@ const Auth = () => {
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetSent, setResetSent] = useState(false);
+  
+  const [newPassword, setNewPassword] = useState("");
+  const [showResetForm, setShowResetForm] = useState(false);
+
+  useEffect(() => {
+    if (window.location.hash.includes("access_token") && window.location.hash.includes("type=recovery")) {
+      setShowResetForm(true);
+      
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get("access_token");
+      if (accessToken) {
+        sessionStorage.setItem("supabase.auth.token", accessToken);
+      }
+      
+      history.replaceState(null, document.title, window.location.pathname);
+    }
+  }, []);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,6 +95,66 @@ const Auth = () => {
       setIsLoading(false);
     }
   };
+
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      
+      if (error) throw error;
+      
+      toast.success("Passwort erfolgreich aktualisiert!");
+      setShowResetForm(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (error: any) {
+      console.error("Fehler beim Aktualisieren des Passworts:", error);
+      toast.error(error.message || "Fehler beim Aktualisieren des Passworts.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (showResetForm) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-secondary/30 to-white p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1 text-center">
+            <CardTitle className="text-2xl font-bold">Neues Passwort festlegen</CardTitle>
+            <CardDescription>
+              Bitte gib dein neues Passwort ein.
+            </CardDescription>
+          </CardHeader>
+          <form onSubmit={handleUpdatePassword}>
+            <CardContent className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <Input 
+                  type="password" 
+                  placeholder="Neues Passwort (mind. 6 Zeichen)" 
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  minLength={6}
+                  required
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={isLoading}
+              >
+                {isLoading ? "Wird aktualisiert..." : "Passwort aktualisieren"}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-secondary/30 to-white p-4">
@@ -176,7 +252,6 @@ const Auth = () => {
         </Tabs>
       </Card>
 
-      {/* Dialog zum Zurücksetzen des Passworts */}
       <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
