@@ -2,26 +2,27 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Conversation } from "@/types/chat";
-import { useAuth } from "@/contexts/AuthContext";
 
-export const useConversations = () => {
-  const { user } = useAuth();
+export const useConversations = (userId: string) => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchConversations = async () => {
-      if (!user) return;
+      if (!userId) return;
       
       try {
+        setLoading(true);
         // Korrekter Aufruf der RPC-Methode mit zwei generischen Typen
         const { data, error } = await supabase.rpc<Conversation[], { user_id: string }>(
           'get_conversations_with_details',
-          { user_id: user.id }
+          { user_id: userId }
         );
 
         if (error) {
           console.error("Error fetching conversations:", error);
+          setError(new Error(error.message));
           return;
         }
 
@@ -30,6 +31,7 @@ export const useConversations = () => {
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
+        setError(error instanceof Error ? error : new Error('Unknown error occurred'));
       } finally {
         setLoading(false);
       }
@@ -51,7 +53,7 @@ export const useConversations = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [user]);
+  }, [userId]);
 
-  return { conversations, loading };
+  return { conversations, loading, error };
 };
