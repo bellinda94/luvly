@@ -16,12 +16,15 @@ export const useConversations = () => {
       
       try {
         // Get conversations for the user using the RPC function
-        // Using type assertion for the RPC function call to resolve the type error
-        const { data: conversationsData, error } = await supabase
-          .rpc('get_conversations_with_details', { user_id: user.id }) as unknown as {
-            data: Conversation[] | null;
-            error: Error | null;
-          };
+        // Cast the entire response from the RPC call to the expected type
+        const response = await supabase
+          .rpc('get_conversations_with_details', { user_id: user.id });
+          
+        // Then explicitly cast the response to the expected structure
+        const { data: conversationsData, error } = response as unknown as {
+          data: Conversation[] | null;
+          error: Error | null;
+        };
 
         if (error) {
           console.error("Error fetching conversations:", error);
