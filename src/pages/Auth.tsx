@@ -7,12 +7,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertCircle } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetSent, setResetSent] = useState(false);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +60,26 @@ const Auth = () => {
     }
   };
 
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+      
+      if (error) throw error;
+      
+      setResetSent(true);
+      toast.success("E-Mail zum Zurücksetzen des Passworts wurde gesendet!");
+    } catch (error: any) {
+      toast.error(error.message || "Fehler beim Senden der Zurücksetz-E-Mail.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-secondary/30 to-white p-4">
       <Card className="w-full max-w-md">
@@ -90,6 +115,16 @@ const Auth = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                </div>
+                <div className="text-right">
+                  <Button 
+                    type="button" 
+                    variant="link" 
+                    className="p-0 h-auto text-sm"
+                    onClick={() => setResetDialogOpen(true)}
+                  >
+                    Passwort vergessen?
+                  </Button>
                 </div>
               </CardContent>
               <CardFooter>
@@ -140,6 +175,64 @@ const Auth = () => {
           </TabsContent>
         </Tabs>
       </Card>
+
+      {/* Dialog zum Zurücksetzen des Passworts */}
+      <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Passwort zurücksetzen</DialogTitle>
+            <DialogDescription>
+              Gib deine E-Mail-Adresse ein, um einen Link zum Zurücksetzen deines Passworts zu erhalten.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {!resetSent ? (
+            <form onSubmit={handleResetPassword}>
+              <div className="grid gap-4 py-4">
+                <div className="space-y-2">
+                  <Input
+                    id="reset-email"
+                    type="email"
+                    placeholder="E-Mail-Adresse"
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setResetDialogOpen(false)}
+                >
+                  Abbrechen
+                </Button>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? "Wird gesendet..." : "Link senden"}
+                </Button>
+              </DialogFooter>
+            </form>
+          ) : (
+            <div className="py-6 flex flex-col items-center text-center gap-4">
+              <AlertCircle className="h-10 w-10 text-primary" />
+              <div>
+                <p className="font-medium mb-1">E-Mail gesendet!</p>
+                <p className="text-sm text-muted-foreground">
+                  Bitte überprüfe deine E-Mails und folge dem Link, um dein Passwort zurückzusetzen.
+                </p>
+              </div>
+              <Button onClick={() => {
+                setResetDialogOpen(false);
+                setResetSent(false);
+                setResetEmail("");
+              }}>
+                Schließen
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
