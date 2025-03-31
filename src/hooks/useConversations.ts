@@ -35,9 +35,12 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Call the RPC function without explicit generic types
-        const { data, error } = await supabase
-          .rpc('get_conversations_with_details', { user_id: user.id } as any);
+        // We need to properly handle the typing for the RPC call
+        const { data, error } = await supabase.rpc(
+          'get_conversations_with_details', 
+          { user_id: user.id },
+          { count: null }
+        );
 
         if (error) {
           console.error("Error fetching conversations:", error);
