@@ -35,9 +35,9 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Use type assertion to handle the RPC call without generic type parameters
+        // Call the RPC function without explicit generic types
         const { data, error } = await supabase
-          .rpc('get_conversations_with_details', { user_id: user.id });
+          .rpc('get_conversations_with_details', { user_id: user.id } as any);
 
         if (error) {
           console.error("Error fetching conversations:", error);
@@ -45,7 +45,8 @@ export const useConversations = () => {
         }
 
         if (data) {
-          setConversations(data as Conversation[]);
+          // Cast the response to the expected type
+          setConversations(data as unknown as Conversation[]);
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
