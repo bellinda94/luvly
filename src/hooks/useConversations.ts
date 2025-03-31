@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Conversation } from "@/types/chat";
@@ -14,8 +13,8 @@ export const useConversations = (userId: string) => {
       
       try {
         setLoading(true);
-        // Korrekter Aufruf der RPC-Methode mit zwei generischen Typen
-        const { data, error } = await supabase.rpc<Conversation[], { user_id: string }>(
+        // Korrekter Aufruf der RPC-Methode mit zwei generischen Typen -> Korrigiert: nur ein Typ-Argument nötig
+        const { data, error } = await supabase.rpc<Conversation[]>(
           'get_conversations_with_details',
           { user_id: userId }
         );
