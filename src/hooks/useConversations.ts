@@ -14,8 +14,8 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Use a raw SQL query with params instead of RPC
-        const { data, error } = await supabase.rpc(
+        // Use the correct typing for the RPC call by using an explicit generic type
+        const { data, error } = await supabase.rpc<Conversation[]>(
           'get_conversations_with_details',
           { user_id: user.id }
         );
@@ -26,7 +26,7 @@ export const useConversations = () => {
         }
 
         if (data) {
-          setConversations(data as Conversation[]);
+          setConversations(data);
         }
       } catch (error) {
         console.error("Error loading conversations:", error);
