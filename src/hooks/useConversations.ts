@@ -14,11 +14,10 @@ export const useConversations = () => {
       if (!user) return;
       
       try {
-        // Korrekter Aufruf der RPC-Methode mit dem richtigen Typen
-        const { data, error } = await supabase.rpc<Conversation[], { user_id: string }>(
-          'get_conversations_with_details',
-          { user_id: user.id }
-        );
+        // Korrekter Aufruf der RPC-Methode
+        const { data, error } = await supabase
+          .rpc('get_conversations_with_details', { user_id: user.id })
+          .returns<Conversation[]>();
 
         if (error) {
           console.error("Error fetching conversations:", error);
