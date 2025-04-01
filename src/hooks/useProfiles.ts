@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -17,7 +16,7 @@ export const useProfiles = () => {
         // Wir können auch ohne eingeloggten Benutzer Profile anzeigen (für Demo-Zwecke)
         const { data, error } = await supabase
           .from('profiles')
-          .select('*');
+          .select('id, username, avatar_url, bio, verification_status, interests'); // Select specific columns
 
         if (error) {
           console.error("Error fetching profiles:", error);
