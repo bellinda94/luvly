@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,12 +79,12 @@ const ProfileView = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-medium text-gray-900">E-Mail</h3>
-                  <p className="text-gray-600">{user?.email}</p>
+                  <p className="text-gray-600 italic">E-Mail ist privat</p>
                 </div>
                 
                 <div>
                   <h3 className="font-medium text-gray-900">Benutzername</h3>
-                  <p className="text-gray-600">{profile?.username || user?.email}</p>
+                  <p className="text-gray-600">{profile?.username || "Nicht festgelegt"}</p>
                 </div>
                 
                 <div>
