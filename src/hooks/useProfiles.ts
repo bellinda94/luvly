@@ -11,16 +11,13 @@ export const useProfiles = () => {
 
   useEffect(() => {
     const fetchProfiles = async () => {
-      if (!user) return;
-      
       try {
         setLoading(true);
         
-        // Get all profiles except the current user
+        // Wir können auch ohne eingeloggten Benutzer Profile anzeigen (für Demo-Zwecke)
         const { data, error } = await supabase
           .from('profiles')
-          .select('*')
-          .neq('id', user.id);
+          .select('*');
 
         if (error) {
           console.error("Error fetching profiles:", error);
@@ -28,20 +25,21 @@ export const useProfiles = () => {
         }
 
         if (data) {
-          // Transform the Supabase profiles into our User type without mock data
+          // Transform the Supabase profiles into our User type
           const transformedProfiles: User[] = data.map((profile) => ({
-            id: profile.id, // Use the actual UUID
+            id: profile.id,
             name: profile.username || "User",
-            age: null, // No mock age
-            distance: null, // No mock distance
-            bio: "No bio provided yet",
-            imageUrl: profile.avatar_url || "/placeholder.svg", // Use placeholder if no image
-            verified: "unverified" as const,
+            age: 25, // Demo age
+            distance: "5 km", // Demo distance
+            bio: profile.bio || "No bio provided yet",
+            imageUrl: profile.avatar_url || "/placeholder.svg",
+            verified: profile.verification_status || "unverified" as const,
             preferences: {
-              interests: [],
+              interests: profile.interests || [],
             }
           }));
           
+          console.log("Transformed profiles:", transformedProfiles);
           setProfiles(transformedProfiles);
         }
       } catch (error) {
