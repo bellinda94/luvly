@@ -12,6 +12,8 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "sonner";
 import ResetPassword from "./pages/ResetPassword";
+import BirthdayStep from "./pages/onboarding/BirthdayStep";
+import GenderOrientationStep from "./pages/onboarding/GenderOrientationStep";
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
@@ -31,6 +33,29 @@ function AppContent() {
         {/* Public routes */}
         <Route path="/" element={<Index />} />
         <Route path="/auth" element={<Auth />} />
+        
+        {/* NEU: Onboarding-Routen (geschützt) */}
+        <Route 
+          path="/onboarding/birthday" 
+          element={
+            <ProtectedRoute>
+              <BirthdayStep />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/onboarding/gender-orientation" 
+          element={
+            <ProtectedRoute>
+              <GenderOrientationStep />
+            </ProtectedRoute>
+          } 
+        />
+        {/* Hier kommen später die anderen Onboarding-Routen hin */}
+        {/* 
+        <Route path="/onboarding/looking-for" element={<ProtectedRoute><LookingForStep /></ProtectedRoute>} />
+        <Route path="/onboarding/location" element={<ProtectedRoute><LocationStep /></ProtectedRoute>} />
+        */}
         
         {/* Protected app routes */}
         <Route 

@@ -14,10 +14,10 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetSent, setResetSent] = useState(false);
-  
   const [newPassword, setNewPassword] = useState("");
   const [showResetForm, setShowResetForm] = useState(false);
 
@@ -37,17 +37,28 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username.trim()) {
+      toast.error("Bitte gib einen Benutzernamen ein.");
+      return;
+    }
     setIsLoading(true);
     
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            username: username.trim(),
+          }
+        }
       });
       
       if (error) throw error;
       
-      toast.success("Registrierung erfolgreich! Bitte überprüfe deine E-Mails.");
+      toast.info("Account erstellt! Bitte vervollständige dein Profil.");
+      navigate("/onboarding/birthday");
+      
     } catch (error: any) {
       toast.error(error.message || "Ein Fehler ist aufgetreten.");
     } finally {
@@ -220,6 +231,15 @@ const Auth = () => {
               <CardContent className="space-y-4 pt-4">
                 <div className="space-y-2">
                   <Input 
+                    type="text" 
+                    placeholder="Benutzername" 
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Input 
                     type="email" 
                     placeholder="E-Mail" 
                     value={email}
@@ -244,7 +264,7 @@ const Auth = () => {
                   className="w-full" 
                   disabled={isLoading}
                 >
-                  {isLoading ? "Registrierung läuft..." : "Registrieren"}
+                  {isLoading ? "Registrieren..." : "Registrieren & Weiter"}
                 </Button>
               </CardFooter>
             </form>
