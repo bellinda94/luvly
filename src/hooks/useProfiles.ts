@@ -16,7 +16,7 @@ export const useProfiles = () => {
         // Wir können auch ohne eingeloggten Benutzer Profile anzeigen (für Demo-Zwecke)
         const { data, error } = await supabase
           .from('profiles')
-          .select('id, username, avatar_url, bio, verification_status, interests'); // Select specific columns
+          .select('id, username, avatar_url'); // Only select columns that exist in the database
 
         if (error) {
           console.error("Error fetching profiles:", error);
@@ -30,11 +30,11 @@ export const useProfiles = () => {
             name: profile.username || "User",
             age: 25, // Demo age
             distance: "5 km", // Demo distance
-            bio: profile.bio || "No bio provided yet",
+            bio: "No bio provided yet", // Default bio since the column doesn't exist
             imageUrl: profile.avatar_url || "/placeholder.svg",
-            verified: profile.verification_status || "unverified" as const,
+            verified: "unverified" as const, // Default verification status
             preferences: {
-              interests: profile.interests || [],
+              interests: [], // Default empty interests
             }
           }));
           
