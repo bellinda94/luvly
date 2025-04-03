@@ -1,13 +1,14 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/stores/onboardingStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // Import Select
-import { Label } from '@/components/ui/label'; // Import Label
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 
-// Beispieloptionen - diese sollten idealerweise aus einer Konfiguration oder API kommen
+// Korrekte Optionen
 const genderOptions = ['Männlich', 'Weiblich', 'Divers', 'Nicht angegeben'];
 const orientationOptions = ['Heterosexuell', 'Homosexuell', 'Bisexuell', 'Pansexuell', 'Asexuell', 'Andere', 'Nicht angegeben'];
 
@@ -41,11 +42,11 @@ const GenderOrientationStep = () => {
             {/* Geschlecht Auswahl */}
             <div className="space-y-2">
               <Label htmlFor="gender-select">Geschlecht</Label>
-              <Select value={localGender} onValueChange={setLocalGender} required>
+              <Select value={localGender} onValueChange={setLocalGender}>
                 <SelectTrigger id="gender-select">
                   <SelectValue placeholder="Wähle dein Geschlecht" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover">
+                <SelectContent>
                   {genderOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
@@ -58,11 +59,11 @@ const GenderOrientationStep = () => {
             {/* Sexuelle Orientierung Auswahl */}
             <div className="space-y-2">
               <Label htmlFor="orientation-select">Sexuelle Orientierung</Label>
-              <Select value={localOrientation} onValueChange={setLocalOrientation} required>
+              <Select value={localOrientation} onValueChange={setLocalOrientation}>
                 <SelectTrigger id="orientation-select">
                   <SelectValue placeholder="Wähle deine Orientierung" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover">
+                <SelectContent>
                   {orientationOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
