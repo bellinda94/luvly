@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import AppLayout from "./pages/app/Layout";
 import SwipeView from "./pages/app/Swipe";
 import MatchesView from "./pages/app/Matches";
@@ -18,6 +18,7 @@ import { ChooseUsernameStep } from "./components/Onboarding/Steps/ChooseUsername
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
@@ -56,7 +57,7 @@ function AppContent() {
           path="/onboarding/username" 
           element={
             <ProtectedRoute>
-              <ChooseUsernameStep />
+              <ChooseUsernameStep onNext={() => navigate("/onboarding/looking-for")} />
             </ProtectedRoute>
           } 
         />
