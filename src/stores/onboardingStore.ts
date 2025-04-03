@@ -9,6 +9,7 @@ interface OnboardingState {
   locationPreference: string | null; // z.B. 'radius' oder 'region'
   searchRadius: number | null; // in km
   searchRegion: string | null;
+  username: string;
   // Füge hier bei Bedarf weitere Felder hinzu
 
   // Funktionen zum Aktualisieren des Zustands
@@ -19,6 +20,7 @@ interface OnboardingState {
   setLocationPreference: (preference: string) => void;
   setSearchRadius: (radius: number) => void;
   setSearchRegion: (region: string) => void;
+  setUsername: (username: string) => void;
   resetOnboardingState: () => void;
 }
 
@@ -32,6 +34,7 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   locationPreference: null,
   searchRadius: null,
   searchRegion: null,
+  username: '',
 
   // Updater-Funktionen
   setBirthday: (birthday) => set({ birthday }),
@@ -41,6 +44,7 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   setLocationPreference: (preference) => set({ locationPreference: preference }),
   setSearchRadius: (radius) => set({ searchRadius: radius }),
   setSearchRegion: (region) => set({ searchRegion: region }),
+  setUsername: (username) => set({ username }),
   resetOnboardingState: () => set({
     birthday: null,
     gender: null,
@@ -49,5 +53,6 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
     locationPreference: null,
     searchRadius: null,
     searchRegion: null,
+    username: '',
   }),
 }));
