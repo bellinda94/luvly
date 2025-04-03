@@ -45,7 +45,7 @@ const GenderOrientationStep = () => {
                 <SelectTrigger id="gender-select">
                   <SelectValue placeholder="Wähle dein Geschlecht" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-popover">
                   {genderOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
@@ -62,7 +62,7 @@ const GenderOrientationStep = () => {
                 <SelectTrigger id="orientation-select">
                   <SelectValue placeholder="Wähle deine Orientierung" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-popover">
                   {orientationOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
