@@ -14,6 +14,7 @@ import { Toaster } from "sonner";
 import ResetPassword from "./pages/ResetPassword";
 import BirthdayStep from "./pages/onboarding/BirthdayStep";
 import GenderOrientationStep from "./pages/onboarding/GenderOrientationStep";
+import { ChooseUsernameStep } from "./components/Onboarding/Steps/ChooseUsernameStep";
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
@@ -48,6 +49,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <GenderOrientationStep />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/onboarding/username" 
+          element={
+            <ProtectedRoute>
+              <ChooseUsernameStep />
             </ProtectedRoute>
           } 
         />
