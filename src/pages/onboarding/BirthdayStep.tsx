@@ -6,7 +6,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
-const BirthdayStep = () => {
+interface BirthdayStepProps {
+  onNext: () => void;
+}
+
+const BirthdayStep: React.FC<BirthdayStepProps> = ({ onNext }) => {
   const navigate = useNavigate();
   const { birthday, setBirthday } = useOnboardingStore();
   const [localBirthday, setLocalBirthday] = useState(birthday || '');
@@ -21,7 +25,7 @@ const BirthdayStep = () => {
     // TODO: Füge eine robustere Datumsvalidierung hinzu (Format, Gültigkeit, Mindestalter)
     
     setBirthday(localBirthday);
-    navigate('/onboarding/gender-orientation'); // Navigiere zum nächsten Schritt
+    onNext(); // Navigiere zum nächsten Schritt
   };
 
   return (

@@ -26,7 +26,7 @@ const GenderOrientationStep = () => {
     
     setGender(localGender);
     setOrientation(localOrientation);
-    navigate('/onboarding/looking-for'); // Navigiere zum nächsten Schritt
+    navigate('/onboarding/username'); // Navigiere zum nächsten Schritt
   };
 
   return (

@@ -20,6 +20,10 @@ function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
   const navigate = useNavigate();
 
+  const handleOnboardingNext = (nextPath: string) => {
+    navigate(nextPath);
+  };
+
   if (isLoading) {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
   }
@@ -29,7 +33,7 @@ function AppContent() {
   }
 
   return (
-    <Router>
+    <>
       <Toaster position="top-center" />
       <Routes>
         {/* Public routes */}
@@ -41,7 +45,7 @@ function AppContent() {
           path="/onboarding/birthday" 
           element={
             <ProtectedRoute>
-              <BirthdayStep />
+              <BirthdayStep onNext={() => handleOnboardingNext('/onboarding/gender-orientation')} />
             </ProtectedRoute>
           } 
         />
@@ -49,7 +53,7 @@ function AppContent() {
           path="/onboarding/gender-orientation" 
           element={
             <ProtectedRoute>
-              <GenderOrientationStep />
+              <GenderOrientationStep onNext={() => handleOnboardingNext('/onboarding/username')} />
             </ProtectedRoute>
           } 
         />
@@ -57,7 +61,7 @@ function AppContent() {
           path="/onboarding/username" 
           element={
             <ProtectedRoute>
-              <ChooseUsernameStep onNext={() => navigate("/onboarding/looking-for")} />
+              <ChooseUsernameStep onNext={() => handleOnboardingNext('/onboarding/looking-for')} />
             </ProtectedRoute>
           } 
         />
@@ -87,15 +91,17 @@ function AppContent() {
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent /> 
-    </AuthProvider>
+    <Router>
+      <AuthProvider>
+        <AppContent /> 
+      </AuthProvider>
+    </Router>
   );
 }
 
