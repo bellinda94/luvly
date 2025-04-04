@@ -13,6 +13,7 @@ interface OnboardingState {
   has_children: boolean | null;          // Hast du bereits Kinder?
   children_count: number | null;         // Wie viele Kinder hast du? (Nur wenn has_children=true)
   desired_children_count: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null; // Gewünschte Anzahl
+  interests: string[];
 
   // Funktionen zum Aktualisieren des Zustands
   setBirthday: (birthday: string) => void;
@@ -26,6 +27,7 @@ interface OnboardingState {
   setHasChildren: (has: boolean | null) => void;
   setChildrenCount: (count: number | null) => void;
   setDesiredChildrenCount: (desired: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null) => void;
+  setInterests: (interests: string[]) => void;
   resetOnboardingState: () => void;
 }
 
@@ -43,6 +45,7 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   has_children: null,
   children_count: null,
   desired_children_count: null,
+  interests: [],
 
   // Updater-Funktionen
   setBirthday: (birthday) => set({ birthday }),
@@ -60,6 +63,7 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   }),
   setChildrenCount: (count) => set({ children_count: count }),
   setDesiredChildrenCount: (desired) => set({ desired_children_count: desired }),
+  setInterests: (interests) => set({ interests }),
   resetOnboardingState: () => set({
     birthday: null,
     gender: null,
@@ -72,5 +76,6 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
     has_children: null,
     children_count: null,
     desired_children_count: null,
+    interests: [],
   }),
 }));
