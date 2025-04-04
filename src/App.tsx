@@ -15,6 +15,7 @@ import ResetPassword from "./pages/ResetPassword";
 import BirthdayStep from "./pages/onboarding/BirthdayStep";
 import GenderOrientationStep from "./pages/onboarding/GenderOrientationStep";
 import KidsWishStep from "./pages/onboarding/KidsWishStep"; 
+import InterestsStep from "./pages/onboarding/InterestsStep";
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
@@ -65,6 +66,14 @@ function AppContent() {
               <KidsWishStep onNext={() => handleOnboardingNext('/onboarding/interests')} />
             </ProtectedRoute>
           } 
+        />
+        <Route
+          path="/onboarding/interests" 
+          element={
+            <ProtectedRoute>
+              <InterestsStep onNext={() => handleOnboardingNext('/onboarding/lifestyle')} />
+            </ProtectedRoute>
+          }
         />
         {/* Hier kommen später die anderen Onboarding-Routen hin */}
         {/* 
