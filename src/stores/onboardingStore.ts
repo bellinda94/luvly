@@ -14,6 +14,10 @@ interface OnboardingState {
   children_count: number | null;         // Wie viele Kinder hast du? (Nur wenn has_children=true)
   desired_children_count: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null; // Gewünschte Anzahl
   interests: string[];
+  drinking_habit: string | null;
+  smoking_habit: string | null;
+  exercise_frequency: string | null;
+  pet_preference: string | null;
 
   // Funktionen zum Aktualisieren des Zustands
   setBirthday: (birthday: string) => void;
@@ -28,6 +32,10 @@ interface OnboardingState {
   setChildrenCount: (count: number | null) => void;
   setDesiredChildrenCount: (desired: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null) => void;
   setInterests: (interests: string[]) => void;
+  setDrinkingHabit: (habit: string | null) => void;
+  setSmokingHabit: (habit: string | null) => void;
+  setExerciseFrequency: (frequency: string | null) => void;
+  setPetPreference: (preference: string | null) => void;
   resetOnboardingState: () => void;
 }
 
@@ -46,6 +54,10 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   children_count: null,
   desired_children_count: null,
   interests: [],
+  drinking_habit: null,
+  smoking_habit: null,
+  exercise_frequency: null,
+  pet_preference: null,
 
   // Updater-Funktionen
   setBirthday: (birthday) => set({ birthday }),
@@ -64,6 +76,10 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   setChildrenCount: (count) => set({ children_count: count }),
   setDesiredChildrenCount: (desired) => set({ desired_children_count: desired }),
   setInterests: (interests) => set({ interests }),
+  setDrinkingHabit: (habit) => set({ drinking_habit: habit }),
+  setSmokingHabit: (habit) => set({ smoking_habit: habit }),
+  setExerciseFrequency: (frequency) => set({ exercise_frequency: frequency }),
+  setPetPreference: (preference) => set({ pet_preference: preference }),
   resetOnboardingState: () => set({
     birthday: null,
     gender: null,
@@ -77,5 +93,9 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
     children_count: null,
     desired_children_count: null,
     interests: [],
+    drinking_habit: null,
+    smoking_habit: null,
+    exercise_frequency: null,
+    pet_preference: null,
   }),
 }));
