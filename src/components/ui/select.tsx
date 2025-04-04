@@ -63,8 +63,8 @@ const SelectScrollDownButton = React.forwardRef<
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
 ))
-SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName
+
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -72,6 +72,7 @@ const SelectContent = React.forwardRef<
 >(({ className, children, position = "popper", ...props }, forwardedRef) => {
   const contentRef = React.useRef<HTMLDivElement>(null);
 
+  // Combine forwarded ref with internal ref
   React.useImperativeHandle(forwardedRef, () => contentRef.current!);
 
   useEffect(() => {
@@ -80,14 +81,16 @@ const SelectContent = React.forwardRef<
       contentRef.current.style.backgroundColor = 'blue';
       contentRef.current.style.color = 'white';
     } else {
+      // This might log initially if the portal isn't mounted immediately
       console.log("SelectContent Ref NOT found yet.");
     }
-  }, [contentRef]);
+    // Rerun when the element might appear (though state changes in parent might be better trigger)
+  }, []); // Run once after mount
 
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
-        ref={contentRef}
+        ref={contentRef} // Use internal ref
         className={cn(
           "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
           position === "popper" &&
@@ -100,7 +103,7 @@ const SelectContent = React.forwardRef<
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
+            "p-1", // Keep padding on viewport
             position === "popper" &&
               "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
           )}
@@ -113,6 +116,7 @@ const SelectContent = React.forwardRef<
   )
 })
 SelectContent.displayName = SelectPrimitive.Content.displayName
+
 
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
