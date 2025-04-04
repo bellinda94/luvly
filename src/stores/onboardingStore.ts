@@ -10,7 +10,9 @@ interface OnboardingState {
   searchRadius: number | null; // in km
   searchRegion: string | null;
   username: string;
-  // Füge hier bei Bedarf weitere Felder hinzu
+  has_children: boolean | null;          // Hast du bereits Kinder?
+  children_count: number | null;         // Wie viele Kinder hast du? (Nur wenn has_children=true)
+  desired_children_count: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null; // Gewünschte Anzahl
 
   // Funktionen zum Aktualisieren des Zustands
   setBirthday: (birthday: string) => void;
@@ -21,6 +23,9 @@ interface OnboardingState {
   setSearchRadius: (radius: number) => void;
   setSearchRegion: (region: string) => void;
   setUsername: (username: string) => void;
+  setHasChildren: (has: boolean | null) => void;
+  setChildrenCount: (count: number | null) => void;
+  setDesiredChildrenCount: (desired: '1' | '2' | '3' | '4' | '5+' | 'unsure' | null) => void;
   resetOnboardingState: () => void;
 }
 
@@ -35,6 +40,9 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   searchRadius: null,
   searchRegion: null,
   username: '',
+  has_children: null,
+  children_count: null,
+  desired_children_count: null,
 
   // Updater-Funktionen
   setBirthday: (birthday) => set({ birthday }),
@@ -45,6 +53,13 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   setSearchRadius: (radius) => set({ searchRadius: radius }),
   setSearchRegion: (region) => set({ searchRegion: region }),
   setUsername: (username) => set({ username }),
+  setHasChildren: (has) => set((state) => {
+    // Wenn User angibt, keine Kinder zu haben, setzen wir die Anzahl auf null zurück
+    const count = has === false ? null : state.children_count;
+    return { has_children: has, children_count: count };
+  }),
+  setChildrenCount: (count) => set({ children_count: count }),
+  setDesiredChildrenCount: (desired) => set({ desired_children_count: desired }),
   resetOnboardingState: () => set({
     birthday: null,
     gender: null,
@@ -54,5 +69,8 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
     searchRadius: null,
     searchRegion: null,
     username: '',
+    has_children: null,
+    children_count: null,
+    desired_children_count: null,
   }),
 }));

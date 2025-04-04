@@ -1,19 +1,21 @@
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/stores/onboardingStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 
 // Korrekte Optionen
 const genderOptions = ['Männlich', 'Weiblich', 'Divers', 'Nicht angegeben'];
 const orientationOptions = ['Heterosexuell', 'Homosexuell', 'Bisexuell', 'Pansexuell', 'Asexuell', 'Andere', 'Nicht angegeben'];
 
-const GenderOrientationStep = () => {
-  const navigate = useNavigate();
+// Interface für die Props hinzufügen
+interface GenderOrientationStepProps {
+  onNext: () => void;
+}
+
+const GenderOrientationStep: React.FC<GenderOrientationStepProps> = ({ onNext }) => {
   const { gender, orientation, setGender, setOrientation } = useOnboardingStore();
   const [localGender, setLocalGender] = useState(gender || '');
   const [localOrientation, setLocalOrientation] = useState(orientation || '');
@@ -27,7 +29,7 @@ const GenderOrientationStep = () => {
     
     setGender(localGender);
     setOrientation(localOrientation);
-    navigate('/onboarding/username'); // Navigiere zum nächsten Schritt
+    onNext(); // Die übergebene Funktion aus App.tsx aufrufen
   };
 
   return (

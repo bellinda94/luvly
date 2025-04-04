@@ -53,15 +53,7 @@ function AppContent() {
           path="/onboarding/gender-orientation" 
           element={
             <ProtectedRoute>
-              <GenderOrientationStep onNext={() => handleOnboardingNext('/onboarding/username')} />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/onboarding/username" 
-          element={
-            <ProtectedRoute>
-              <ChooseUsernameStep onNext={() => handleOnboardingNext('/onboarding/looking-for')} />
+              <GenderOrientationStep onNext={() => handleOnboardingNext('/onboarding/looking-for')} />
             </ProtectedRoute>
           } 
         />
