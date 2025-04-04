@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import AppLayout from "./pages/app/Layout";
 import SwipeView from "./pages/app/Swipe";
 import MatchesView from "./pages/app/Matches";
@@ -14,11 +14,12 @@ import { Toaster } from "sonner";
 import ResetPassword from "./pages/ResetPassword";
 import BirthdayStep from "./pages/onboarding/BirthdayStep";
 import GenderOrientationStep from "./pages/onboarding/GenderOrientationStep";
-import { ChooseUsernameStep } from "./components/Onboarding/Steps/ChooseUsernameStep";
+import KidsWishStep from "./pages/onboarding/KidsWishStep"; 
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleOnboardingNext = (nextPath: string) => {
     navigate(nextPath);
@@ -53,7 +54,15 @@ function AppContent() {
           path="/onboarding/gender-orientation" 
           element={
             <ProtectedRoute>
-              <GenderOrientationStep onNext={() => handleOnboardingNext('/onboarding/looking-for')} />
+              <GenderOrientationStep onNext={() => handleOnboardingNext('/onboarding/kinderwunsch')} />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/onboarding/kinderwunsch" 
+          element={
+            <ProtectedRoute>
+              <KidsWishStep onNext={() => handleOnboardingNext('/onboarding/interests')} />
             </ProtectedRoute>
           } 
         />
