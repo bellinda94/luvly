@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -32,7 +33,7 @@ export const useProfiles = () => {
             distance: "5 km", // Demo distance
             bio: "No bio provided yet", // Default bio since the column doesn't exist
             imageUrl: profile.avatar_url || "/placeholder.svg",
-            verified: "unverified" as const, // Default verification status
+            verified: "unverified", // Default verification status
             preferences: {
               interests: [], // Default empty interests
             }

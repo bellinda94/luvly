@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Conversation } from "@/types/chat";
 
@@ -9,50 +10,33 @@ export const useConversations = (userId: string) => {
 
   useEffect(() => {
     const fetchConversations = async () => {
-      if (!userId) return;
-      
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
       try {
-        setLoading(true);
-        // Korrigiere den Aufruf der RPC-Methode mit korrekten Typen -> Wiederhergestellt: Generischen Typ hinzufügen
-        const { data, error } = await supabase.rpc<Conversation[]>(
-          'get_conversations_with_details', 
-          { user_id: userId }
-        );
+        const { data, error } = await supabase.rpc('get_conversations_with_details', {
+          user_id: userId
+        });
 
         if (error) {
-          console.error("Error fetching conversations:", error);
-          setError(new Error(error.message));
-          return;
+          throw new Error(error.message);
         }
 
         if (data) {
-          // Typ-Assertion kann entfernt werden, da data jetzt korrekt typisiert sein sollte
-          setConversations(data);
+          setConversations(data as Conversation[]);
         }
-      } catch (error) {
-        console.error("Error loading conversations:", error);
-        setError(error instanceof Error ? error : new Error('Unknown error occurred'));
+      } catch (err) {
+        console.error("Error fetching conversations:", err);
+        setError(err instanceof Error ? err : new Error('Unknown error occurred'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchConversations();
-    
-    // Set up realtime subscription for messages
-    const channel = supabase
-      .channel('public:messages')
-      .on('postgres_changes', 
-        { event: 'INSERT', schema: 'public', table: 'messages' }, 
-        () => {
-          fetchConversations();
-        }
-      )
-      .subscribe();
-      
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, [userId]);
 
   return { conversations, loading, error };
