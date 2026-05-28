@@ -16,6 +16,7 @@ import BirthdayStep from "./pages/onboarding/BirthdayStep";
 import GenderOrientationStep from "./pages/onboarding/GenderOrientationStep";
 import KidsWishStep from "./pages/onboarding/KidsWishStep"; 
 import InterestsStep from "./pages/onboarding/InterestsStep";
+import LifestyleStep from "./pages/onboarding/LifestyleStep";
 
 function AppContent() {
   const { isLoading, recoveryMode } = useAuth();
@@ -72,6 +73,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <InterestsStep onNext={() => handleOnboardingNext('/onboarding/lifestyle')} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/onboarding/lifestyle" 
+          element={
+            <ProtectedRoute>
+              <LifestyleStep onNext={() => handleOnboardingNext('/onboarding/photos')} />
             </ProtectedRoute>
           }
         />
